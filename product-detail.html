@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CAPAZ - Detalle del Producto</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
+  <body>
+    <div class="fondo-orquideas">
+      <!-- SVGs removed temporarily -->
+    </div>
+    <header class="header">
+      <img src="img/logo 2.png" alt="Logo" class="logo" /> <!-- Corregido path de la imagen -->
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html#inicio">Inicio</a></li>
+          <li><a href="index.html#">Nueva colección</a></li>
+          <li><a href="index.html#shop">Tienda</a></li>
+          <li><a href="index.html#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Buscar productos..."
+        />
+        <button class="search-button">🔍</button>
+      </div>
+    </header>
+    <main class="main-content">
+      <section class="product-detail-section">
+        <div class="product-detail-container">
+          <div class="product-image-slider">
+            <div class="slider-container">
+              <img id="main-image" src="" alt="Producto" class="main-product-image" /> <!-- src vacío, se llenará con JS -->
+              <div class="slider-nav">
+                <button id="prev-btn" class="slider-btn">❮</button>
+                <button id="next-btn" class="slider-btn">❯</button>
+              </div>
+            </div>
+            <div class="thumbnail-container" id="thumbnail-container">
+              <!-- Las miniaturas se cargarán aquí dinámicamente con JS -->
+            </div>
+          </div>
+          <div class="product-info">
+            <h1 class="product-title-detail" id="product-title-detail">Nombre del Producto</h1>
+            <p class="product-description" id="product-description">
+              Ehh, aquí va la descripción de la vuelta c:
+            </p>
+            <div class="product-price" id="product-price">Precio de la prenda</div>
+            <div class="product-options">
+              <div class="size-selector">
+                <label for="size">Talla:</label>
+                <select id="size" class="size-select">
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                  <option value="XL">XL</option>
+                </select>
+              </div>
+              <div class="quantity-selector">
+                <label for="quantity">Cantidad:</label>
+                <input type="number" id="quantity" class="quantity-input" value="1" min="1" />
+              </div>
+            </div>
+            <div class="product-actions">
+              <button id="add-to-cart" class="btn add-to-cart-btn">Agregar al Carrito</button>
+              <button id="buy-now" class="btn buy-now-btn">Comprar Ahora</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script> <!-- Asegúrate de que este script se cargue al final del body -->
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Códigos con Especificación</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        button { padding: 10px 15px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Generador de Códigos con Especificación</h1>
+    <p>Genera un archivo con el código compacto y su especificación detallada.</p>
+    <button onclick="generarYDescargar()">Generar y Descargar Códigos</button>
+
+    <script>
+        function generarCombinaciones(arrays, prefix = []) {
+            if (!arrays.length) return [prefix];
+            const [first, ...rest] = arrays;
+            return first.flatMap(value => generarCombinaciones(rest, [...prefix, value]));
+        }
+
+        function generarTodosLosCodigosConEspecificacion() {
+            const prendas = Array.from({ length: 8 }, (_, i) => `P${i + 1}`);
+            const tallas = ['S', 'M', 'L', 'XL'];
+            let lineas = [];
+
+           
+            for (let numPrendas = 1; numPrendas <= 8; numPrendas++) {
+             
+                const combinacionesPrendas = [];
+                function combinarPrendas(start, current) {
+                    if (current.length === numPrendas) {
+                        combinacionesPrendas.push([...current]);
+                        return;
+                    }
+                    for (let i = start; i < prendas.length; i++) {
+                        current.push(prendas[i]);
+                        combinarPrendas(i + 1, current);
+                        current.pop();
+                    }
+                }
+                combinarPrendas(0, []);
+
+                
+                for (const comboPrendas of combinacionesPrendas) {
+                    const arraysTallas = Array(comboPrendas.length).fill(tallas);
+                    const combinacionesTallas = generarCombinaciones(arraysTallas);
+                    for (const comboTallas of combinacionesTallas) {
+                        const codigo = comboPrendas.map((prenda, idx) => `${prenda}${comboTallas[idx]}`).join('-');
+                        const especificacion = comboPrendas.map((prenda, idx) =>
+                            `${prenda.replace('P', 'Prenda ')}: ${comboTallas[idx]}`).join(', ');
+                        lineas.push(`${codigo}\t=> ${especificacion}`);
+                    }
+                }
+            }
+
+            return lineas.join('\n');
+        }
+
+        function generarYDescargar() {
+            const contenido = generarTodosLosCodigosConEspecificacion();
+            const blob = new Blob([contenido], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'codigos_con_especificacion.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            alert('¡Archivo generado y descargado como codigos_con_especificacion.txt!');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Prendas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <img src="img/logo 2.png" alt="Logo" class="logo">
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Productos</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Buscar productos...">
+            <button class="search-button">Buscar</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h1 class="section-title">Nuestras Prendas</h1>
+        <div class="products-grid" id="productos">
+            <!-- Los productos se cargarán aquí dinámicamente -->
+        </div>
+    </main>
+
+    <div class="carrito-container">
+        <h2>Carrito de Compras</h2>
+        <div class="carrito-items" id="items-carrito">
+            <!-- Los productos del carrito se mostrarán aquí -->
+        </div>
+        <div class="carrito-total">
+            Total: $<span id="total-carrito">0</span>
+        </div>
+        <button id="proceder-pago" class="btn add-to-cart-btn">
+            <i class="fab fa-whatsapp"></i> Proceder con el pago
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
