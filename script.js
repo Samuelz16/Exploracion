@@ -6,7 +6,8 @@ const productos = [
     { id: 6, nombre: "Prenda 4", precio: 35.00, imagen: "img/4.png", imagenesAdicionales: ["img/4.1.png", "img/4.png"], descripcion: "Diseño exclusivo con materiales de alta calidad." },
     { id: 7, nombre: "Prenda 5", precio: 28.00, imagen: "img/7.png", imagenesAdicionales: ["img/7.1.png", "img/7.png"], descripcion: "Versátil y fácil de combinar, un básico en tu armario." },
     { id: 9, nombre: "Prenda 6", precio: 40.00, imagen: "img/8.jpg", imagenesAdicionales: ["img/8.1.jpg", "img/8.jpg"], descripcion: "Estilo único y confort garantizado." },
-   
+    // { id: 10, nombre: "Prenda 7", precio: 22.00, imagen: "img/13.png", imagenesAdicionales: ["img/13.1.png", "img/13.png"], descripcion: "Novedad de temporada, no te quedes sin ella." }, // Asumiendo que img/13.png y 13.1.png existen
+];
 
 // Carrito
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
@@ -216,4 +217,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     actualizarCarrito(); // Asegurarse de que el carrito se actualice en ambas páginas si es visible
 });
-
