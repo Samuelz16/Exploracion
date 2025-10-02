@@ -1,12 +1,12 @@
 // Datos de los productos con tus imágenes y precio 0
 const productos = [
     { id: 1, nombre: "Prenda 1", precio: 25.00, imagen: "img/1.png", imagenesAdicionales: ["img/1.1.png", "img/1.png"], descripcion: "Una prenda cómoda y elegante para cualquier ocasión." },
-    { id: 3, nombre: "Prenda 2", precio: 30.00, imagen: "img/2.png", imagenesAdicionales: ["img/2.1.png", "img/2.png"], descripcion: "Ideal para el día a día, con un diseño moderno." },
-    { id: 5, nombre: "Prenda 3", precio: 20.00, imagen: "img/3.png", imagenesAdicionales: ["img/3.1.png", "img/3.png"], descripcion: "Perfecta para un look casual y relajado." },
-    { id: 6, nombre: "Prenda 4", precio: 35.00, imagen: "img/4.png", imagenesAdicionales: ["img/4.1.png", "img/4.png"], descripcion: "Diseño exclusivo con materiales de alta calidad." },
-    { id: 7, nombre: "Prenda 5", precio: 28.00, imagen: "img/7.png", imagenesAdicionales: ["img/7.1.png", "img/7.png"], descripcion: "Versátil y fácil de combinar, un básico en tu armario." },
-    { id: 9, nombre: "Prenda 6", precio: 40.00, imagen: "img/8.jpg", imagenesAdicionales: ["img/8.1.jpg", "img/8.jpg"], descripcion: "Estilo único y confort garantizado." },
-    // { id: 10, nombre: "Prenda 7", precio: 22.00, imagen: "img/13.png", imagenesAdicionales: ["img/13.1.png", "img/13.png"], descripcion: "Novedad de temporada, no te quedes sin ella." }, // Asumiendo que img/13.png y 13.1.png existen
+    { id: 2, nombre: "Prenda 2", precio: 30.00, imagen: "img/2.png", imagenesAdicionales: ["img/2.1.png", "img/2.png"], descripcion: "Ideal para el día a día, con un diseño moderno." },
+    { id: 3, nombre: "Prenda 3", precio: 20.00, imagen: "img/3.png", imagenesAdicionales: ["img/3.1.png", "img/3.png"], descripcion: "Perfecta para un look casual y relajado." },
+    { id: 4, nombre: "Prenda 4", precio: 35.00, imagen: "img/4.png", imagenesAdicionales: ["img/4.1.png", "img/4.png"], descripcion: "Diseño exclusivo con materiales de alta calidad." },
+    { id: 5, nombre: "Prenda 5", precio: 28.00, imagen: "img/5.png", imagenesAdicionales: ["img/5.1.png", "img/5.png"], descripcion: "Versátil y fácil de combinar, un básico en tu armario." },
+    { id: 6, nombre: "Prenda 6", precio: 40.00, imagen: "img/6.jpg", imagenesAdicionales: ["img/6.1.jpg", "img/6.jpg"], descripcion: "Estilo único y confort garantizado." },
+    { id: 6, nombre: "Prenda 7", precio: 40.00, imagen: "img/7.jpg", imagenesAdicionales: ["img/7.1.jpg", "img/7.jpg"], descripcion: "Estilo único y confort garantizado." },
 ];
 
 // Carrito
