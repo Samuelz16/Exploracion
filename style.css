@@ -1,6 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display.swap");
 
-/* Reseteo básico de estilos para todos los elementos */
+/* ==========================================================================
+   1. Estilos Globales (Reset, Body, Títulos)
+   ========================================================================== */
+
+/* Reseteo básico */
 * {
   margin: 0;
   padding: 0;
@@ -8,14 +12,10 @@
   font-family: "Montserrat", sans-serif;
 }
 
-/* ==========================================================================
-   1. Estilos del Cuerpo (Body) y Fondo
-   ========================================================================== */
-
 body {
   min-height: 100vh;
   background: #f5f0f8;
-  background-image: url("fondo.jpg"); /* CORREGIDO: Apunta a .jpg */
+  background-image: url("fondo.jpg"); /* CORREGIDO */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -24,7 +24,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Capa semitransparente sobre el fondo para mejorar la legibilidad */
+/* Capa semitransparente sobre el fondo */
 body::before {
   content: "";
   position: fixed;
@@ -36,101 +36,7 @@ body::before {
   z-index: -1;
 }
 
-/* ==========================================================================
-   2. Encabezado (Header) y Navegación (MODO HORIZONTAL + HIDE ON SCROLL)
-   ========================================================================== */
-
-.header {
-  width: 100%;
-  padding: 15px 50px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(5px);
-  
-  display: flex; 
-  flex-direction: row; /* CLAVE: Header horizontal por defecto */
-  justify-content: space-between; /* Distribuye el logo, menú y búsqueda */
-  align-items: center; 
-  
-  box-shadow: 0 4px 12px rgba(90, 31, 62, 0.15);
-  position: fixed; 
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  /* CLAVE: Transición para ocultar/mostrar suavemente */
-  transition: transform 0.4s ease-out; 
-}
-
-.logo {
-  height: 40px; 
-  width: auto;
-  object-fit: contain;
-  display: block;
-  transform: scale(1.0); 
-  margin: 0; 
-}
-
-/* Menú de navegación */
-.nav-menu {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    padding: 0;
-    margin: 0 30px; 
-    flex-grow: 1; 
-}
-
-/* Estilos de los enlaces de navegación */
-.nav-menu .nav-link {
-  color: #5a1f3e;
-  font-weight: 600;
-  font-size: 16px;
-  padding: 12px 20px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.8);
-  transition: all 0.35s ease;
-  box-shadow: 0 2px 8px rgba(90, 31, 62, 0.08);
-  margin: 0 8px;
-}
-
-.nav-menu .nav-link:hover {
-  background: rgba(255, 255, 255, 0.95);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(90, 31, 62, 0.12);
-  color: #800040;
-}
-
-/* RESALTADO DE ENLACE ACTIVO (Funcionalidad JS) */
-.nav-menu .active-nav-link {
-    background: #800040 !important; 
-    color: white !important;
-    transform: scale(1.05) !important;
-    box-shadow: 0 4px 10px rgba(128, 0, 64, 0.4) !important;
-}
-
-/* Barra de búsqueda */
-.search-container {
-    width: auto; 
-    max-width: 250px; 
-    display: flex;
-}
-.search-input {
-    flex-grow: 1;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 10px 0 0 10px;
-}
-
-
-/* ==========================================================================
-   3. Contenido Principal y Títulos
-   ========================================================================== */
-
-/* IMPORTANTE: Compensación para el contenido principal (ajustado para el header horizontal) */
-.main-content,
-.product-detail-section {
-  padding-top: 100px !important; 
-}
-
+/* Título de sección estándar */
 .section-title {
   color: #5a1f3e;
   font-size: 36px;
@@ -153,9 +59,100 @@ body::before {
 }
 
 /* ==========================================================================
-   4. Grid de Productos (index.html)
+   2. Layout y Navegación (Header, Menú, Búsqueda)
    ========================================================================== */
 
+/* Contenedor principal del Header */
+.header {
+  width: 100%;
+  padding: 15px 50px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  display: flex; 
+  flex-direction: row; 
+  justify-content: space-between; 
+  align-items: center; 
+  box-shadow: 0 4px 12px rgba(90, 31, 62, 0.15);
+  position: fixed; 
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: transform 0.4s ease-out; 
+}
+
+/* Estilo base del logo (para móvil) */
+.logo {
+  height: 40px; 
+  width: auto;
+  object-fit: contain;
+  display: block;
+  transform: scale(1.0); 
+  margin: 0; 
+}
+
+/* Menú de navegación */
+.nav-menu {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0 30px; 
+    flex-grow: 1; 
+}
+
+.nav-menu .nav-link {
+  color: #5a1f3e;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  transition: all 0.35s ease;
+  box-shadow: 0 2px 8px rgba(90, 31, 62, 0.08);
+  margin: 0 8px;
+  text-decoration: none;
+}
+
+.nav-menu .nav-link:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(90, 31, 62, 0.12);
+  color: #800040;
+}
+
+/* Estilo para el enlace activo (controlado por JS) */
+.nav-menu .active-nav-link {
+    background: #800040 !important; 
+    color: white !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 4px 10px rgba(128, 0, 64, 0.4) !important;
+}
+
+/* Contenedor de búsqueda (base) */
+.search-container {
+    width: auto; 
+    max-width: 250px; 
+    display: flex;
+}
+
+.search-input {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px 0 0 10px;
+}
+
+/* Contenedores de contenido principal */
+.main-content,
+.product-detail-section {
+  padding-top: 100px !important; 
+}
+
+/* ==========================================================================
+   3. Componentes de Página (Grid, Detalle, Carrito)
+   ========================================================================== */
+
+/* --- Grid de Productos (index.html) --- */
 .products-grid {
     --bs-gutter-x: 2.5rem;
     --bs-gutter-y: 2.5rem;
@@ -206,11 +203,7 @@ body::before {
   justify-content: center;
 }
 
-/* ==========================================================================
-   5. Detalle del Producto: Contenedores e Información
-   ========================================================================== */
-
-/* Contenedor principal del Detalle del Producto */
+/* --- Detalle de Producto (product-detail.html) --- */
 .product-detail-container {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 16px;
@@ -218,7 +211,6 @@ body::before {
   border: 1px solid rgba(220, 200, 220, 0.5);
 }
 
-/* Caja interna para la imagen y el slider */
 .product-image-box {
   background: white;
   border-radius: 12px;
@@ -245,10 +237,7 @@ body::before {
   margin-bottom: 30px;
 }
 
-/* ==========================================================================
-   6. Carrusel de Fotos (PRODUCT DETAIL)
-   ========================================================================== */
-
+/* --- Carrusel de Imágenes (product-detail.html) --- */
 .slider-container {
     position: relative;
     margin-bottom: 15px;
@@ -262,7 +251,6 @@ body::before {
     display: block;
 }
 
-/* Contenedor de las Flechas de Navegación */
 .slider-nav {
     position: absolute;
     top: 50%;
@@ -274,7 +262,6 @@ body::before {
     padding: 0 10px;
 }
 
-/* Botones de Navegación (Flechas) */
 .slider-btn {
     pointer-events: auto;
     background: rgba(255, 255, 255, 0.8);
@@ -300,7 +287,6 @@ body::before {
     box-shadow: 0 6px 15px rgba(128, 0, 64, 0.3);
 }
 
-/* Miniaturas */
 .thumbnail-container {
   display: flex;
   justify-content: center;
@@ -326,10 +312,7 @@ body::before {
   box-shadow: 0 2px 8px rgba(128, 0, 64, 0.2);
 }
 
-/* ==========================================================================
-   7. Carrito de Compras, Contacto y Nosotros
-   ========================================================================== */
-
+/* --- Carrito, Contacto y Nosotros --- */
 .carrito-container {
   background: white;
   border-radius: 12px;
@@ -362,9 +345,10 @@ body::before {
 }
 
 /* ==========================================================================
-   8. Estilos Unificados de Botones (Estético Final)
+   4. Componentes Compartidos (Botones, Toast)
    ========================================================================== */
 
+/* --- Estilos Unificados de Botones --- */
 .btn {
     border: none !important;
     font-weight: 700 !important;
@@ -376,7 +360,7 @@ body::before {
     letter-spacing: 0.8px; 
 }
 
-/* 1. Botón Principal (Marca) */
+/* Botón Principal (Marca) */
 #proceder-pago, 
 .add-to-cart-btn,
 .product-card .btn { 
@@ -392,7 +376,7 @@ body::before {
     box-shadow: 0 10px 20px rgba(90, 31, 62, 0.25) !important; 
 }
 
-/* 2. Botón de Compra Rápida (WhatsApp) */
+/* Botón de Compra Rápida (WhatsApp) */
 .buy-now-btn {
     background-color: #25D366 !important; 
     color: white !important;
@@ -405,7 +389,7 @@ body::before {
     box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4) !important;
 }
 
-/* 3. Botón de Búsqueda */
+/* Botón de Búsqueda */
 .search-button {
     background: #800040 !important;
     color: white !important;
@@ -417,7 +401,7 @@ body::before {
     box-shadow: none !important; 
 }
 
-/* 4. Botón de Envío de Formulario */
+/* Botón de Envío de Formulario */
 .submit-btn {
     display: block;
     width: 100%;
@@ -435,11 +419,7 @@ body::before {
     letter-spacing: 0.8px;
 }
 
-
-/* ==========================================================================
-   9. Notificación Toast (Funcionalidad JS)
-   ========================================================================== */
-
+/* --- Notificación Toast (Controlada por JS) --- */
 #toast-notification {
     position: fixed;
     bottom: 30px;
@@ -461,24 +441,25 @@ body::before {
     visibility: visible;
 }
 
-
 /* ==========================================================================
-   10. Media Queries (Responsividad)
+   5. Responsividad (Media Queries)
    ========================================================================== */
 
-/* CLASE QUE SERÁ APLICADA CON JS PARA OCULTAR EL HEADER EN MÓVILES */
+/* --- Estilos para Móvil (max-width: 768px) --- */
 @media (max-width: 768px) {
-    /* El header horizontal se oculta cuando se desplaza hacia abajo */
+    
+    /* Header que se oculta al hacer scroll */
     .header-hidden {
         transform: translateY(-100%); 
     }
     
-    /* En móviles, el header vuelve a ser vertical para ahorrar espacio */
+    /* Header en formato vertical */
     .header {
         flex-direction: column; 
         padding: 15px; 
     }
 
+    /* Logo más grande en móvil */
     .logo {
         transform: scale(1.5);
         height: 60px;
@@ -495,7 +476,7 @@ body::before {
         max-width: 100%;
     }
     
-    /* El padding-top debe ajustarse a la altura del header vertical en móviles */
+    /* Ajuste de padding para el header vertical */
     .main-content,
     .product-detail-section {
         padding-top: 220px !important; 
@@ -522,18 +503,110 @@ body::before {
 }
 
 
-/* Estilos para tabletas y escritorios (Header Horizontal) */
+/* --- Estilos para Escritorio (min-width: 769px) --- */
 @media (min-width: 769px) {
-    /* Asegura la separación adecuada en escritorio */
+    
+    /* Ajuste de padding para el header horizontal */
     .main-content,
     .product-detail-section {
       padding-top: 100px !important; 
     }
+
+    /* Logo superpuesto */
+    .logo {
+      height: 90px; 
+      width: auto;
+      position: absolute;
+      top: 50%;
+      left: 50px; 
+      transform: translateY(-50%);
+      z-index: 1001;
+      transition: transform 0.3s ease-out;
+    }
+
+    .logo:hover {
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    /* Búsqueda superpuesta (para centrar nav) */
+    .search-container {
+      position: absolute;
+      right: 50px; 
+      top: 50%;
+      transform: translateY(-50%);
+      width: 250px; 
+    }
+
+    /* Fuerza al contenedor <nav> a ocupar todo el ancho */
+    .header nav {
+      width: 100%;
+    }
 }
 
+/* --- Ajustes para Tabletas (max-width: 992px) --- */
 @media (max-width: 992px) {
   .product-title-detail {
     font-size: 1.8rem;
     margin-top: 20px;
   }
+}
+
+/* ==========================================================================
+   6. NUEVO: Hero Section (index.html)
+   ========================================================================== */
+
+.hero-section {
+  /* Usa la misma imagen de fondo */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  /* Se superpone al header, así que necesita el padding */
+  padding-top: 100px; 
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+
+.hero-content p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+  margin-bottom: 30px;
+}
+
+.hero-btn {
+    background-color: white !important;
+    color: #800040 !important;
+    padding: 15px 30px !important;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+}
+
+.hero-btn:hover {
+    background-color: #f0f0f0 !important;
+    color: #5a1f3e !important;
+    transform: translateY(-3px) !important;
+}
+
+/* Ajuste de padding en móvil para el hero */
+@media (max-width: 768px) {
+    .hero-section {
+        padding-top: 220px !important;
+        height: 70vh;
+    }
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .hero-content p {
+        font-size: 1.2rem;
+    }
 }
