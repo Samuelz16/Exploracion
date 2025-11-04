@@ -1,7 +1,15 @@
 // --- DATOS DE PRODUCTOS ---
-// Añadí "destacado: true" a los productos que quieres en la nueva página de inicio
+// Productos 1, 2 y 3 están marcados como "destacado: true"
 const productos = [
-    { id: 1, nombre: "Prenda 1", precio: 25.00, imagen: "img/1.png", imagenesAdicionales: ["img/1.1.png", "img/1.png"], descripcion: "Una prenda cómoda y elegante para cualquier ocasión." },
+    { 
+      id: 1, 
+      nombre: "Prenda 1", 
+      precio: 25.00, 
+      imagen: "img/1.png", 
+      imagenesAdicionales: ["img/1.1.png", "img/1.png"], 
+      descripcion: "Una prenda cómoda y elegante para cualquier ocasión.",
+      destacado: true // <--- AÑADIDO
+    },
     {
       id: 2,
       nombre: "jean bolsillos",
@@ -9,17 +17,25 @@ const productos = [
       imagen: "img/2.png",
       imagenesAdicionales: ["img/2.1.png", "img/2.2.jpg", "img/2.3.jpg", "img/2.4.jpg", "img/2.5.jpg", "img/2.6.jpg"],
       descripcion: "Ideal para el día a día, con un diseño moderno.",
-      destacado: true // Este aparecerá en la página de inicio
+      destacado: true // <--- MANTENIDO
     },
-    { id: 3, nombre: "Prenda 3", precio: 20.00, imagen: "img/3.png", imagenesAdicionales: ["img/3.1.png", "img/3.png"], descripcion: "Perfecta para un look casual y relajado." },
+    { 
+      id: 3, 
+      nombre: "Prenda 3", 
+      precio: 20.00, 
+      imagen: "img/3.png", 
+      imagenesAdicionales: ["img/3.1.png", "img/3.png"], 
+      descripcion: "Perfecta para un look casual y relajado.",
+      destacado: true // <--- AÑADIDO
+    },
     { 
       id: 4, 
       nombre: "Prenda 4", 
       precio: 35.00, 
       imagen: "img/4.png", 
       imagenesAdicionales: ["img/4.1.png", "img/4.png"], 
-      descripcion: "Diseño exclusivo con materiales de alta calidad.",
-      destacado: true // Este aparecerá en la página de inicio
+      descripcion: "Diseño exclusivo con materiales de alta calidad."
+      // "destacado: true" ha sido eliminado
     },
     { id: 5, nombre: "Prenda 5", precio: 28.00, imagen: "img/5.png", imagenesAdicionales: ["img/5.1.png", "img/5.png"], descripcion: "Estilo fresco y juvenil." },
     { 
@@ -28,8 +44,8 @@ const productos = [
       precio: 45.00, 
       imagen: "img/6.png", 
       imagenesAdicionales: ["img/6.1.png", "img/6.png"], 
-      descripcion: "Elegancia y confort en una sola prenda.",
-      destacado: true // Este aparecerá en la página de inicio
+      descripcion: "Elegancia y confort en una sola prenda."
+      // "destacado: true" ha sido eliminado
     }
 ];
 

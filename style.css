@@ -556,8 +556,8 @@ body::before {
    ========================================================================== */
 
 .hero-section {
-  /* Usa la misma imagen de fondo */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('fondo.jpg');
+  /* Usa la nueva imagen de fondo */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('fondo.png');
   background-size: cover;
   background-position: center;
   height: 60vh;
