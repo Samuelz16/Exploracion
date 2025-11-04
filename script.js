@@ -282,6 +282,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     actualizarCarrito(); // Asegurar que el carrito se inicialice en todas las páginas
 
+    // --- INICIO: CÓDIGO AÑADIDO PARA EL BOTÓN DE PAGO ---
+    const botonPagar = document.getElementById('proceder-pago');
+    
+    if (botonPagar) { // Solo se ejecutará si el botón existe (en index.html)
+        botonPagar.addEventListener('click', () => {
+            // 1. Revisa si el carrito tiene items
+            if (carrito.length === 0) {
+                mostrarToast('El carrito está vacío.');
+                return; // Detiene la ejecución si no hay nada
+            }
+
+            // 2. Define el número de WhatsApp
+            const numeroWhatsApp = '+573154154446';
+            let mensaje = 'Hola CAPAZ, quiero proceder con el pago de mi carrito:\n\n';
+            let total = 0;
+
+            // 3. Recorre el carrito para armar el mensaje
+            carrito.forEach(item => {
+                const subtotal = item.precio * item.cantidad;
+                mensaje += `- ${item.cantidad}x ${item.nombre} (Talla: ${item.talla})\n`;
+                total += subtotal;
+            });
+
+            // 4. Añade el total al mensaje
+            mensaje += `\n*Total del Pedido: $${total.toFixed(2)}*`;
+
+            // 5. Crea y abre la URL de WhatsApp
+            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        });
+    }
+    // --- FIN: CÓDIGO AÑADIDO PARA EL BOTÓN DE PAGO ---
+
     // Añadir listeners para la funcionalidad del header
     window.addEventListener('scroll', handleHeaderVisibility);
     window.addEventListener('resize', handleHeaderVisibility);
