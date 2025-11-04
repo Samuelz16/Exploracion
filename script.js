@@ -12,182 +12,201 @@ const productos = [
 
     { id: 3, nombre: "Prenda 3", precio: 20.00, imagen: "img/3.png", imagenesAdicionales: ["img/3.1.png", "img/3.png"], descripcion: "Perfecta para un look casual y relajado." },
     { id: 4, nombre: "Prenda 4", precio: 35.00, imagen: "img/4.png", imagenesAdicionales: ["img/4.1.png", "img/4.png"], descripcion: "Diseño exclusivo con materiales de alta calidad." },
-    { id: 5, nombre: "Prenda 5", precio: 28.00, imagen: "img/5.png", imagenesAdicionales: ["img/5.1.png", "img/5.png"], descripcion: "Versátil y fácil de combinar, un básico en tu armario." },
-    { id: 6, nombre: "Prenda 6", precio: 40.00, imagen: "img/6.jpg", imagenesAdicionales: ["img/6.1.jpg", "img/6.jpg"], descripcion: "Estilo único y confort garantizado." },
-    { id: 6, nombre: "Prenda 7", precio: 40.00, imagen: "img/7.jpg", imagenesAdicionales: ["img/7.1.jpg", "img/7.jpg"], descripcion: "Estilo único y confort garantizado." },
+    { id: 5, nombre: "Prenda 5", precio: 28.00, imagen: "img/5.png", imagenesAdicionales: ["img/5.1.png", "img/5.png"], descripcion: "Estilo fresco y juvenil." },
+    { id: 6, nombre: "Prenda 6", precio: 45.00, imagen: "img/6.png", imagenesAdicionales: ["img/6.1.png", "img/6.png"], descripcion: "Elegancia y confort en una sola prenda." }
 ];
 
-// Carrito
+// Carrito de compras: usa localStorage para persistir los datos
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-// Función para mostrar productos en index.html
-function mostrarProductos() {
-    const productosContainer = document.querySelector('.products-grid');
-    if (!productosContainer) return; // Asegurarse de que estamos en index.html
+/**
+ * Muestra una notificación temporal (Toast)
+ * @param {string} message - El mensaje a mostrar.
+ */
+function mostrarToast(message) {
+    const toast = document.getElementById('toast-notification');
+    const toastBody = document.getElementById('toast-body');
+    if (!toast || !toastBody) return;
 
-    productosContainer.innerHTML = '';
-
-    productos.forEach(producto => {
-        const productoElement = document.createElement('a'); // Cambiado a <a>
-        productoElement.href = `product-detail.html?id=${producto.id}`; // Enlace a la página de detalle
-        productoElement.className = 'product-card';
-        productoElement.innerHTML = `
-            <div class="product-img">
-                <img src="${producto.imagen}" alt="${producto.nombre}" onerror="this.src='https://via.placeholder.com/250/800040/FFFFFF?text=${producto.nombre}'">
-            </div>
-            <div class="product-title">${producto.nombre}</div>
-            <button class="btn add-to-cart-btn" onclick="event.preventDefault(); agregarAlCarrito(${producto.id})">Agregar al carrito</button>
-        `;
-        productosContainer.appendChild(productoElement);
-    });
+    toastBody.textContent = message;
+    toast.classList.add('show');
+    
+    // Ocultar después de 3 segundos
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
 }
 
-// Función para agregar al carrito (ahora puede recibir talla y cantidad)
-function agregarAlCarrito(productoId, talla = 'N/A', cantidad = 1) {
-    const producto = productos.find(p => p.id === productoId);
-    if (producto) {
-        const itemCarrito = {
+/**
+ * Guarda y actualiza la vista del carrito en el DOM
+ */
+function actualizarCarrito() {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    
+    const itemsCarritoDiv = document.getElementById('items-carrito');
+    const totalCarritoSpan = document.getElementById('total-carrito');
+
+    if (itemsCarritoDiv) {
+        itemsCarritoDiv.innerHTML = '';
+        let total = 0;
+
+        if (carrito.length === 0) {
+            itemsCarritoDiv.innerHTML = '<p class="text-center mt-3">El carrito está vacío.</p>';
+        } else {
+            carrito.forEach((item, index) => {
+                const subtotal = item.precio * item.cantidad;
+                total += subtotal;
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'producto-carrito';
+                itemDiv.innerHTML = `
+                    <span>${item.cantidad}x ${item.nombre} (T: ${item.talla})</span>
+                    <span>$${subtotal.toFixed(2)} 
+                        <button class="btn btn-sm btn-danger ms-2" onclick="quitarDelCarrito(${index})">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </span>
+                `;
+                itemsCarritoDiv.appendChild(itemDiv);
+            });
+        }
+        if (totalCarritoSpan) {
+            totalCarritoSpan.textContent = total.toFixed(2);
+        }
+    }
+}
+
+/**
+ * Agrega un producto al carrito
+ */
+function agregarAlCarrito(id, talla, cantidad) {
+    const producto = productos.find(p => p.id === id);
+    if (!producto) return;
+
+    const itemExistente = carrito.find(item => item.id === id && item.talla === talla);
+
+    if (itemExistente) {
+        itemExistente.cantidad += cantidad;
+    } else {
+        carrito.push({
             id: producto.id,
             nombre: producto.nombre,
             precio: producto.precio,
-            imagen: producto.imagen,
             talla: talla,
             cantidad: cantidad
-        };
-        carrito.push(itemCarrito);
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-        actualizarCarrito();
-        alert(`${cantidad}x ${producto.nombre} (Talla: ${talla}) agregado al carrito`);
-    }
-}
-
-// Función para actualizar el carrito
-function actualizarCarrito() {
-    const itemsCarrito = document.getElementById('items-carrito');
-    const totalCarrito = document.getElementById('total-carrito');
-    if (!itemsCarrito || !totalCarrito) return; // Asegurarse de que estamos en index.html
-
-    itemsCarrito.innerHTML = '';
-    let total = 0;
-
-    if (carrito.length === 0) {
-        itemsCarrito.innerHTML = '<p style="text-align: center; color: #5a1f3e;">El carrito está vacío</p>';
-    } else {
-        carrito.forEach((item, index) => {
-            const productoElement = document.createElement('div');
-            productoElement.className = 'producto-carrito';
-            productoElement.innerHTML = `
-                <span>${item.nombre} (T: ${item.talla}, Cant: ${item.cantidad}) - $${(item.precio * item.cantidad).toFixed(2)}</span>
-                <button onclick="eliminarDelCarrito(${index})"><i class="fas fa-trash"></i></button>
-            `;
-            itemsCarrito.appendChild(productoElement);
-            total += item.precio * item.cantidad;
         });
     }
 
-    totalCarrito.textContent = total.toFixed(2);
-}
-
-// Función para eliminar del carrito
-function eliminarDelCarrito(index) {
-    const productoEliminado = carrito[index];
-    carrito.splice(index, 1);
-    localStorage.setItem('carrito', JSON.stringify(carrito));
     actualizarCarrito();
-    alert(`${productoEliminado.nombre} eliminado del carrito`);
+    mostrarToast(`¡${producto.nombre} (T:${talla}) agregado!`);
 }
 
-// Función para proceder con el pago
-document.addEventListener('DOMContentLoaded', () => {
-    const procederPagoBtn = document.getElementById('proceder-pago');
-    if (procederPagoBtn) { // Solo si estamos en index.html
-        procederPagoBtn.addEventListener('click', () => {
-            if (carrito.length === 0) {
-                alert('El carrito está vacío. Agrega productos antes de proceder.');
-                return;
-            }
+/**
+ * Quita un producto del carrito por su índice
+ */
+function quitarDelCarrito(index) {
+    carrito.splice(index, 1);
+    actualizarCarrito();
+}
 
-            const mensaje = carrito.map(item =>
-                `- ${item.cantidad}x ${item.nombre} (Talla: ${item.talla})`
-            ).join('\n');
+/**
+ * Genera y muestra la cuadrícula de productos en index.html
+ */
+function mostrarProductos() {
+    const productosGrid = document.getElementById('productos');
+    if (!productosGrid) return;
 
-            const numeroWhatsApp = '+573154154446';
-            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(
-                `Hola, quiero información sobre los siguientes productos:\n${mensaje}\nTotal: $${document.getElementById('total-carrito').textContent}`
-            )}`;
+    productosGrid.innerHTML = '';
+    productos.forEach(producto => {
+        const card = document.createElement('div');
+        card.className = 'col';
+        card.innerHTML = `
+            <div class="product-card" onclick="window.location.href='product-detail.html?id=${producto.id}'">
+                <img src="${producto.imagen}" alt="${producto.nombre}" class="product-img">
+                <h3 class="product-title">${producto.nombre}</h3>
+                <div class="p-3 text-center">
+                    <span class="product-price-list">$${producto.precio.toFixed(2)}</span>
+                </div>
+            </div>
+        `;
+        productosGrid.appendChild(card);
+    });
+}
 
-            window.open(url, '_blank');
+/**
+ * Lógica del carrusel de imágenes
+ */
+let currentImageIndex = 0;
+let currentProduct = null;
+
+function cambiarImagen(index) {
+    const mainImage = document.getElementById('main-product-image');
+    const thumbnails = document.querySelectorAll('.thumbnail');
+
+    if (currentProduct && mainImage && thumbnails.length > 0) {
+        // Normaliza el índice
+        if (index >= currentProduct.imagenesAdicionales.length) {
+            currentImageIndex = 0;
+        } else if (index < 0) {
+            currentImageIndex = currentProduct.imagenesAdicionales.length - 1;
+        } else {
+            currentImageIndex = index;
+        }
+
+        // Cambia la imagen principal
+        mainImage.src = currentProduct.imagenesAdicionales[currentImageIndex];
+
+        // Actualiza el estado activo de las miniaturas
+        thumbnails.forEach((thumb, i) => {
+            thumb.classList.toggle('active', i === currentImageIndex);
         });
     }
-});
+}
 
+function cargarMiniaturas() {
+    const thumbnailContainer = document.getElementById('thumbnail-container');
+    if (!currentProduct || !thumbnailContainer) return;
 
-// --- Lógica específica para product-detail.html ---
+    thumbnailContainer.innerHTML = '';
 
-let currentProduct = null; // Variable para almacenar el producto actual en la página de detalle
-let currentImageIndex = 0; // Para el slider de imágenes
+    currentProduct.imagenesAdicionales.forEach((imgSrc, index) => {
+        const thumb = document.createElement('img');
+        thumb.src = imgSrc;
+        thumb.alt = `Vista ${index + 1}`;
+        thumb.className = 'thumbnail';
+        thumb.addEventListener('click', () => cambiarImagen(index));
+        
+        thumbnailContainer.appendChild(thumb);
+    });
+    // Inicializar la imagen principal y el estado activo
+    cambiarImagen(0); 
+}
 
+/**
+ * Carga el detalle del producto en product-detail.html
+ */
 function cargarDetalleProducto() {
     const urlParams = new URLSearchParams(window.location.search);
-    const productId = parseInt(urlParams.get('id'));
-
-    if (isNaN(productId)) {
-        // Redirigir o mostrar un mensaje de error si no hay ID válido
-        document.querySelector('.product-detail-container').innerHTML = '<p style="text-align: center; font-size: 1.2em; color: #e74c3c;">Producto no encontrado. Vuelve a la <a href="index.html" style="color: #800040; text-decoration: none;">página principal</a>.</p>';
-        return;
-    }
-
+    const productId = parseInt(urlParams.get('id')) || 1; // Default a ID 1
+    
     currentProduct = productos.find(p => p.id === productId);
 
-    if (!currentProduct) {
-        document.querySelector('.product-detail-container').innerHTML = '<p style="text-align: center; font-size: 1.2em; color: #e74c3c;">Producto no encontrado. Vuelve a la <a href="index.html" style="color: #800040; text-decoration: none;">página principal</a>.</p>';
-        return;
+    if (currentProduct) {
+        document.getElementById('product-title-detail').textContent = currentProduct.nombre;
+        document.getElementById('product-description').textContent = currentProduct.descripcion;
+        document.getElementById('product-price').textContent = `$${currentProduct.precio.toFixed(2)}`;
+        
+        cargarMiniaturas();
+
+        // Configurar botones de navegación del carrusel
+        document.getElementById('prev-btn').addEventListener('click', () => cambiarImagen(currentImageIndex - 1));
+        document.getElementById('next-btn').addEventListener('click', () => cambiarImagen(currentImageIndex + 1));
+
+    } else {
+        document.getElementById('product-title-detail').textContent = "Producto No Encontrado";
     }
 
-    // Actualizar elementos de la página de detalle
-    document.getElementById('product-title-detail').textContent = currentProduct.nombre;
-    document.getElementById('product-description').textContent = currentProduct.descripcion;
-    document.getElementById('product-price').textContent = `Precio: $${currentProduct.precio.toFixed(2)}`;
-
-    // Slider de imágenes
-    const mainImage = document.getElementById('main-image');
-    const thumbnailContainer = document.getElementById('thumbnail-container');
-    const allImages = [currentProduct.imagen, ...(currentProduct.imagenesAdicionales || [])];
-
-    mainImage.src = allImages[0]; // Mostrar la primera imagen por defecto
-
-    thumbnailContainer.innerHTML = ''; // Limpiar miniaturas existentes
-    allImages.forEach((imgSrc, index) => {
-        const thumbnail = document.createElement('img');
-        thumbnail.src = imgSrc;
-        thumbnail.alt = `${currentProduct.nombre} - Vista ${index + 1}`;
-        thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''}`;
-        thumbnail.dataset.index = index;
-        thumbnail.addEventListener('click', () => {
-            mainImage.src = imgSrc;
-            currentImageIndex = index;
-            document.querySelectorAll('.thumbnail').forEach(thumb => thumb.classList.remove('active'));
-            thumbnail.classList.add('active');
-        });
-        thumbnailContainer.appendChild(thumbnail);
-    });
-
-    // Eventos para botones de navegación del slider
-    document.getElementById('prev-btn').addEventListener('click', () => {
-        currentImageIndex = (currentImageIndex - 1 + allImages.length) % allImages.length;
-        mainImage.src = allImages[currentImageIndex];
-        document.querySelectorAll('.thumbnail').forEach(thumb => thumb.classList.remove('active'));
-        document.querySelector(`.thumbnail[data-index="${currentImageIndex}"]`).classList.add('active');
-    });
-
-    document.getElementById('next-btn').addEventListener('click', () => {
-        currentImageIndex = (currentImageIndex + 1) % allImages.length;
-        mainImage.src = allImages[currentImageIndex];
-        document.querySelectorAll('.thumbnail').forEach(thumb => thumb.classList.remove('active'));
-        document.querySelector(`.thumbnail[data-index="${currentImageIndex}"]`).classList.add('active');
-    });
-
-    // Eventos para "Agregar al Carrito" y "Comprar Ahora"
+    // Eventos de compra
     document.getElementById('add-to-cart').addEventListener('click', () => {
         const selectedSize = document.getElementById('size').value;
         const quantity = parseInt(document.getElementById('quantity').value);
@@ -214,14 +233,57 @@ function cargarDetalleProducto() {
 }
 
 
+// =========================================================================
+// LÓGICA DEL HEADER OCULTABLE EN MÓVILES (Hide on Scroll)
+// =========================================================================
+
+let lastScrollY = 0;
+const header = document.querySelector('.header');
+const mobileBreakpoint = 768; // Debe coincidir con el media query en CSS
+
+function handleHeaderVisibility() {
+    if (!header) return;
+    
+    // 1. Revisa si estamos en un tamaño móvil
+    if (window.matchMedia(`(max-width: ${mobileBreakpoint}px)`).matches) {
+        const currentScrollY = window.scrollY;
+
+        // 2. Si el usuario se ha desplazado más allá de la altura del header
+        if (currentScrollY > header.offsetHeight) {
+            // SCROLLING DOWN: Ocultar el header
+            if (currentScrollY > lastScrollY) {
+                header.classList.add('header-hidden');
+            } 
+            // SCROLLING UP: Mostrar el header
+            else if (currentScrollY < lastScrollY) {
+                header.classList.remove('header-hidden');
+            }
+        } 
+        // Si estamos cerca de la parte superior, siempre mostrar
+        else if (currentScrollY < 100) {
+            header.classList.remove('header-hidden');
+        }
+
+        lastScrollY = currentScrollY;
+    } else {
+        // En escritorio (header horizontal), siempre debe estar visible
+        header.classList.remove('header-hidden');
+    }
+}
+
+
 // Cargar productos y carrito al iniciar
 document.addEventListener('DOMContentLoaded', () => {
     // Detectar si estamos en index.html o product-detail.html
     if (document.querySelector('.products-grid')) { // Estamos en index.html
         mostrarProductos();
-        actualizarCarrito();
     } else if (document.querySelector('.product-detail-container')) { // Estamos en product-detail.html
         cargarDetalleProducto();
     }
-    actualizarCarrito(); // Asegurarse de que el carrito se actualice en ambas páginas si es visible
+    actualizarCarrito(); // Asegurar que el carrito se inicialice en todas las páginas
+
+    // Añadir listeners para la funcionalidad del header
+    window.addEventListener('scroll', handleHeaderVisibility);
+    window.addEventListener('resize', handleHeaderVisibility);
+    handleHeaderVisibility(); // Ejecutar al inicio para asegurar el estado correcto
 });

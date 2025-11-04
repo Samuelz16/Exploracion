@@ -1,23 +1,23 @@
-
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto - Tienda de Prendas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
    
 </head>
 <body>
-    <!-- Encabezado de la página -->
     <header class="header">
         <img src="img/logo 2.png" alt="Logo" class="logo">
         <nav>
             <ul class="nav-menu">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="#">Productos</a></li>
-                <li><a href="nosotros.html">Nosotros</a></li>
-                <li><a href="contactanos.html">Contacto</a></li>
+                <li><a class="nav-link" href="index.html">Inicio</a></li>
+                <li><a class="nav-link" href="index.html">Productos</a></li>
+                <li><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+                <li><a class="nav-link" href="contactanos.html">Contacto</a></li>
             </ul>
         </nav>
         <div class="search-container">
@@ -26,33 +26,48 @@
         </div>
     </header>
 
-    <!-- Contenido principal de la página "Contacto" -->
-    <main class="main-content">
-        <h1 class="section-title">Ponte en Contacto</h1>
-        <div class="contact-form">
-            <!-- El formulario ya no necesita 'action' ni 'method' porque lo manejaremos con JavaScript -->
-            <form>
-                <!-- Campo para el Nombre -->
-                <div class="form-group">
-                    <label for="name">Nombre Completo</label>
+    <main class="main-content container my-5">
+        <h1 class="section-title text-center mb-5">Ponte en Contacto</h1>
+        <div class="contact-form mx-auto">
+            <form id="contact-form">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre Completo</label>
                     <input type="text" id="name" name="name" class="form-control" required>
                 </div>
-                <!-- Campo para el Email -->
-                <div class="form-group">
-                    <label for="email">Correo Electrónico</label>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico</label>
                     <input type="email" id="email" name="email" class="form-control" required>
                 </div>
-                <!-- Campo para el Mensaje -->
-                <div class="form-group">
-                    <label for="message">Mensaje</label>
-                    <textarea id="message" name="message" class="form-control" required></textarea>
+                <div class="mb-4">
+                    <label for="message" class="form-label">Mensaje</label>
+                    <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
                 </div>
-                <!-- Botón de Envío -->
-                <button type="submit" class="submit-btn">Enviar Mensaje por WhatsApp</button>
+                <button type="submit" class="submit-btn">
+                    <i class="fab fa-whatsapp me-2"></i> Enviar Mensaje por WhatsApp
+                </button>
             </form>
         </div>
     </main>
 
+    <div id="toast-notification">
+        <div id="toast-body"></div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const mensaje = document.getElementById('message').value;
+            
+            const mensajeWhatsApp = `Hola, mi nombre es ${nombre}. Mi correo es ${email} y mi consulta es: ${mensaje}`;
+            const numeroWhatsApp = '+573154154446'; // Reemplaza con tu número
+            
+            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensajeWhatsApp)}`;
+            window.open(url, '_blank');
+        });
+    </script>
 </body>
 </html>

@@ -4,76 +4,101 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CAPAZ - Detalle del Producto</title>
-    <link rel="stylesheet" href="style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="fondo-orquideas">
-      <!-- SVGs removed temporarily -->
-    </div>
+    
     <header class="header">
-      <img src="img/logo 2.png" alt="Logo" class="logo" /> <!-- Corregido path de la imagen -->
-      <nav>
-        <ul class="nav-menu">
-          <li><a href="index.html#inicio">Inicio</a></li>
-          <li><a href="index.html#">Nueva colección</a></li>
-          <li><a href="index.html#shop">Tienda</a></li>
-          <li><a href="index.html#contacto">Contacto</a></li>
-        </ul>
-      </nav>
-      <div class="search-container">
-        <input
-          type="text"
-          class="search-input"
-          placeholder="Buscar productos..."
-        />
-        <button class="search-button">🔍</button>
-      </div>
-    </header>
-    <main class="main-content">
-      <section class="product-detail-section">
-        <div class="product-detail-container">
-          <div class="product-image-slider">
-            <div class="slider-container">
-              <img id="main-image" src="" alt="Producto" class="main-product-image" /> <!-- src vacío, se llenará con JS -->
-              <div class="slider-nav">
-                <button id="prev-btn" class="slider-btn">❮</button>
-                <button id="next-btn" class="slider-btn">❯</button>
-              </div>
-            </div>
-            <div class="thumbnail-container" id="thumbnail-container">
-              <!-- Las miniaturas se cargarán aquí dinámicamente con JS -->
-            </div>
-          </div>
-          <div class="product-info">
-            <h1 class="product-title-detail" id="product-title-detail">Nombre del Producto</h1>
-            <p class="product-description" id="product-description">
-              Ehh, aquí va la descripción de la vuelta c:
-            </p>
-            <div class="product-price" id="product-price">Precio de la prenda</div>
-            <div class="product-options">
-              <div class="size-selector">
-                <label for="size">Talla:</label>
-                <select id="size" class="size-select">
-                  <option value="S">S</option>
-                  <option value="M">M</option>
-                  <option value="L">L</option>
-                  <option value="XL">XL</option>
-                </select>
-              </div>
-              <div class="quantity-selector">
-                <label for="quantity">Cantidad:</label>
-                <input type="number" id="quantity" class="quantity-input" value="1" min="1" />
-              </div>
-            </div>
-            <div class="product-actions">
-              <button id="add-to-cart" class="btn add-to-cart-btn">Agregar al Carrito</button>
-              <button id="buy-now" class="btn buy-now-btn">Comprar Ahora</button>
-            </div>
-          </div>
+        <img src="img/logo 2.png" alt="Logo" class="logo">
+        <nav>
+            <ul class="nav-menu">
+                <li><a class="nav-link" href="index.html">Inicio</a></li>
+                <li><a class="nav-link" href="index.html">Productos</a></li>
+                <li><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+                <li><a class="nav-link" href="contactanos.html">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Buscar productos...">
+            <button class="search-button">Buscar</button>
         </div>
-      </section>
-    </main>
-    <script src="script.js"></script> <!-- Asegúrate de que este script se cargue al final del body -->
+    </header>
+
+    <main class="container">
+      
+        <section class="product-detail-section my-5 p-4 p-lg-5 product-detail-container">
+          
+          <div class="row g-5">
+            
+            <div class="col-lg-7 col-12 d-flex flex-column align-items-center">
+              
+              <div class="product-image-box p-3 p-md-4 w-100">
+                
+                <div class="slider-container">
+                  
+                  <img src="placeholder.png" alt="Imagen del producto principal" class="main-product-image img-fluid" id="main-product-image"/>
+                  
+                  <div class="slider-nav">
+                    <button class="slider-btn" id="prev-btn">
+                      <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-btn" id="next-btn">
+                      <i class="fas fa-chevron-right"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="thumbnail-container" id="thumbnail-container">
+                    </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-5 col-12 d-flex flex-column justify-content-center">
+              <div class="product-info">
+                
+                <h1 class="product-title-detail" id="product-title-detail">Nombre del Producto</h1>
+                <p class="product-description" id="product-description">
+                  Aquí va la descripción detallada del producto.
+                </p>
+                <div class="product-price" id="product-price">$0.00</div>
+                
+                <div class="product-options d-flex gap-4 flex-wrap align-items-center mb-4">
+                  <div class="size-selector">
+                    <label for="size" class="fw-bold">Talla:</label>
+                    <select id="size" class="form-select size-select d-inline-block w-auto">
+                      <option value="S">S</option>
+                      <option value="M">M</option>
+                      <option value="L">L</option>
+                      <option value="XL">XL</option>
+                    </select>
+                  </div>
+                  <div class="quantity-selector">
+                    <label for="quantity" class="fw-bold">Cantidad:</label>
+                    <input type="number" id="quantity" class="form-control quantity-input d-inline-block w-auto" value="1" min="1" max="10" />
+                  </div>
+                </div>
+                
+                <div class="product-actions d-flex gap-3 flex-column flex-md-row">
+                  <button id="add-to-cart" class="btn add-to-cart-btn flex-fill">
+                    <i class="fas fa-cart-plus me-2"></i> Agregar al Carrito
+                  </button>
+                  <button id="buy-now" class="btn buy-now-btn flex-fill">
+                    <i class="fab fa-whatsapp me-2"></i> Comprar Ahora
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    
+    <div id="toast-notification">
+        <div id="toast-body"></div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
   </body>
 </html>

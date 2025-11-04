@@ -1,165 +1,137 @@
-
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap");
 
 /* Reseteo básico de estilos para todos los elementos */
 * {
-  margin: 0; /* Elimina el margen por defecto */
-  padding: 0; /* Elimina el padding por defecto */
-  box-sizing: border-box; /* Asegura que el padding y borde no afecten el tamaño total del elemento */
-  font-family: "Montserrat", sans-serif; /* Establece la fuente principal para todo el sitio */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* ==========================================================================
-   Estilos del Cuerpo (Body)
+   1. Estilos del Cuerpo (Body) y Fondo
    ========================================================================== */
 
 body {
-  min-height: 100vh; /* Altura mínima igual a la altura de la ventana */
-  background: #f5f0f8; /* Color de fondo de respaldo */
-  background-image: url("fondo.png"); /* Imagen de fondo */
-  background-size: cover; /* La imagen cubre todo el contenedor */
-  background-position: center; /* Centra la imagen de fondo */
-  background-repeat: no-repeat; /* Evita que la imagen se repita */
-  background-attachment: fixed; /* La imagen de fondo se queda fija al hacer scroll */
-  position: relative; /* Necesario para el pseudo-elemento ::before */
-  overflow-x: hidden; /* Evita el desbordamiento horizontal */
+  min-height: 100vh;
+  background: #f5f0f8;
+  background-image: url("fondo.png"); /* Asegúrate de que este archivo exista */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* Capa semitransparente sobre el fondo para mejorar la legibilidad del texto */
+/* Capa semitransparente sobre el fondo para mejorar la legibilidad */
 body::before {
   content: "";
-  position: fixed; /* Fijo en la pantalla */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.3); /* Blanco con 30% de opacidad */
-  z-index: -1; /* Se coloca detrás de todo el contenido */
+  background-color: rgba(255, 255, 255, 0.3);
+  z-index: -1;
 }
 
 /* ==========================================================================
-   Encabezado (Header)
+   2. Encabezado (Header) y Navegación (MODO HORIZONTAL + HIDE ON SCROLL)
    ========================================================================== */
 
 .header {
-  display: flex;
-  align-items: center; /* Alinea verticalmente los elementos */
-  justify-content: space-between; /* Distribuye el espacio entre los elementos */
-  padding: 15px 30px; /* Espaciado interno */
-  background: rgba(245, 240, 248, 0.9); /* Fondo semitransparente */
-  backdrop-filter: blur(12px); /* Efecto de desenfoque para el fondo */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); /* Sombra suave */
-  position: relative;
-  flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
-  z-index: 10; /* Se asegura que el header esté sobre otros elementos */
   width: 100%;
-  box-sizing: border-box;
+  padding: 15px 50px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  
+  display: flex; 
+  flex-direction: row; /* CLAVE: Header horizontal por defecto */
+  justify-content: space-between; /* Distribuye el logo, menú y búsqueda */
+  align-items: center; 
+  
+  box-shadow: 0 4px 12px rgba(90, 31, 62, 0.15);
+  position: fixed; 
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  /* CLAVE: Transición para ocultar/mostrar suavemente */
+  transition: transform 0.4s ease-out; 
 }
 
-/* Estilos del logo */
 .logo {
-  height: 80px;
+  height: 40px; 
   width: auto;
-  margin-right: 20px;
-  z-index: 2;
-  object-fit: contain; /* Asegura que la imagen se escale correctamente sin distorsión */
+  object-fit: contain;
   display: block;
-  transform: scale(2.3); /* Aumenta el tamaño del logo */
+  transform: scale(1.0); 
+  margin: 0; 
 }
 
-/* ==========================================================================
-   Menú de Navegación
-   ========================================================================== */
-
+/* Menú de navegación */
 .nav-menu {
-  display: flex;
-  list-style: none; /* Quita los puntos de la lista */
-  gap: 25px; /* Espacio entre los elementos del menú */
-  z-index: 2;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0 30px; 
+    flex-grow: 1; 
 }
 
-.nav-menu li {
-  margin: 0;
-}
-
-.nav-menu a {
-  display: block;
-  text-decoration: none; /* Quita el subrayado de los enlaces */
-  color: #5a1f3e; /* Color del texto */
-  font-weight: 600; /* Grosor de la fuente */
+/* Estilos de los enlaces de navegación */
+.nav-menu .nav-link {
+  color: #5a1f3e;
+  font-weight: 600;
   font-size: 16px;
   padding: 12px 20px;
-  border-radius: 8px; /* Bordes redondeados */
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.8);
-  transition: all 0.35s ease; /* Transición suave para efectos hover */
-  box-shadow: 0 2px 8px rgba(90, 31, 62, 0.08);
-}
-
-/* Efecto al pasar el ratón sobre los enlaces del menú */
-.nav-menu a:hover {
-  background: rgba(255, 255, 255, 0.95);
-  transform: translateY(-3px); /* Mueve el enlace hacia arriba */
-  box-shadow: 0 6px 12px rgba(90, 31, 62, 0.12);
-  color: #800040; /* Cambia el color del texto */
-}
-
-/* ==========================================================================
-   Barra de Búsqueda
-   ========================================================================== */
-
-.search-container {
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 24px;
-  padding: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  z-index: 2;
-}
-
-.search-input {
-  width: 100%;
-  padding: 10px 18px;
-  border: none;
-  outline: none; /* Quita el borde al hacer foco */
-  font-size: 15px;
-  border-radius: 20px 0 0 20px;
-  background: white;
-  font-family: "Montserrat", sans-serif;
-  color: #5a1f3e;
-}
-
-.search-button {
-  padding: 10px 20px;
-  background: #800040;
-  color: white;
-  border: none;
-  border-radius: 0 20px 20px 0;
-  cursor: pointer;
-  font-weight: 600;
   transition: all 0.35s ease;
+  box-shadow: 0 2px 8px rgba(90, 31, 62, 0.08);
+  margin: 0 8px;
 }
 
-.search-button:hover {
-  background: #5a1f3e;
+.nav-menu .nav-link:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(90, 31, 62, 0.12);
+  color: #800040;
 }
+
+/* RESALTADO DE ENLACE ACTIVO (Funcionalidad JS) */
+.nav-menu .active-nav-link {
+    background: #800040 !important; 
+    color: white !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 4px 10px rgba(128, 0, 64, 0.4) !important;
+}
+
+/* Barra de búsqueda */
+.search-container {
+    width: auto; 
+    max-width: 250px; 
+    display: flex;
+}
+.search-input {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px 0 0 10px;
+}
+
 
 /* ==========================================================================
-   Contenido Principal
+   3. Contenido Principal y Títulos
    ========================================================================== */
 
-.main-content {
-  padding: 80px 30px 30px;
-  max-width: 1200px; /* Ancho máximo del contenido */
-  margin: 0 auto; /* Centra el contenido */
-  position: relative;
-  z-index: 1;
+/* IMPORTANTE: Compensación para el contenido principal (ajustado para el header horizontal) */
+.main-content,
+.product-detail-section {
+  padding-top: 100px !important; 
 }
 
-/* Título de la sección */
 .section-title {
-  text-align: center;
-  margin-bottom: 50px;
   color: #5a1f3e;
   font-size: 36px;
   font-weight: 700;
@@ -168,7 +140,6 @@ body::before {
   position: relative;
 }
 
-/* Línea decorativa debajo del título de la sección */
 .section-title::after {
   content: "";
   position: absolute;
@@ -182,41 +153,37 @@ body::before {
 }
 
 /* ==========================================================================
-   Grid de Productos
+   4. Grid de Productos (index.html)
    ========================================================================== */
 
 .products-grid {
-  display: grid;
-  /* Crea columnas automáticas que tienen un mínimo de 350px */
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 40px; /* Espacio entre las tarjetas de producto */
-  padding: 20px 0;
+    --bs-gutter-x: 2.5rem;
+    --bs-gutter-y: 2.5rem;
+    padding: 20px 0;
 }
 
-/* Tarjeta de producto individual */
 .product-card {
   background: white;
   border-radius: 12px;
-  overflow: hidden; /* Oculta cualquier contenido que se salga de la tarjeta */
+  overflow: hidden;
   box-shadow: 0 8px 20px rgba(90, 31, 62, 0.08);
   transition: all 0.4s ease;
   cursor: pointer;
   border: 1px solid rgba(220, 200, 220, 0.3);
-  height: 500px;
+  height: 500px; 
   display: flex;
   flex-direction: column;
 }
 
 .product-card:hover {
-  transform: translateY(-10px); /* Eleva la tarjeta al pasar el ratón */
+  transform: translateY(-10px);
   box-shadow: 0 15px 30px rgba(90, 31, 62, 0.12);
 }
 
-/* Imagen del producto */
 .product-img {
   width: 100%;
   height: 350px;
-  object-fit: contain; /* La imagen se ajusta sin distorsionarse */
+  object-fit: contain;
   background: white;
   transition: transform 0.4s ease;
   display: flex;
@@ -226,11 +193,6 @@ body::before {
   margin-bottom: 15px;
 }
 
-.product-card:hover .product-img {
-  transform: scale(1.05); /* Aumenta ligeramente el tamaño de la imagen */
-}
-
-/* Título del producto */
 .product-title {
   padding: 0 20px 15px;
   text-align: center;
@@ -238,445 +200,340 @@ body::before {
   font-size: 18px;
   font-weight: 600;
   letter-spacing: 0.5px;
-  flex-grow: 1; /* Permite que el título ocupe el espacio restante */
+  flex-grow: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 /* ==========================================================================
-   Botones
+   5. Detalle del Producto: Contenedores e Información
    ========================================================================== */
 
-.btn {
-  padding: 12px 25px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-  margin: 0 20px 20px;
-  background-color: #800040;
-  color: white;
+/* Contenedor principal del Detalle del Producto */
+.product-detail-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(90, 31, 62, 0.15);
+  border: 1px solid rgba(220, 200, 220, 0.5);
 }
 
-.btn:hover {
-  background-color: #5a1f3e;
-  transform: translateY(-3px);
+/* Caja interna para la imagen y el slider */
+.product-image-box {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+}
+
+.product-title-detail {
+  color: #800040;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.product-price {
+  color: #5a1f3e;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 30px;
 }
 
 /* ==========================================================================
-   Carrito de Compras
+   6. Carrusel de Fotos (PRODUCT DETAIL)
+   ========================================================================== */
+
+.slider-container {
+    position: relative;
+    margin-bottom: 15px;
+    padding: 0;
+}
+
+.main-product-image {
+    max-height: 500px; 
+    width: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Contenedor de las Flechas de Navegación */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none;
+    padding: 0 10px;
+}
+
+/* Botones de Navegación (Flechas) */
+.slider-btn {
+    pointer-events: auto;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: #5a1f3e;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.slider-btn:hover {
+    background: #800040;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(128, 0, 64, 0.3);
+}
+
+/* Miniaturas */
+.thumbnail-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 15px;
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  padding: 5px;
+}
+
+.thumbnail.active,
+.thumbnail:hover {
+  border-color: #800040;
+  box-shadow: 0 2px 8px rgba(128, 0, 64, 0.2);
+}
+
+/* ==========================================================================
+   7. Carrito de Compras, Contacto y Nosotros
    ========================================================================== */
 
 .carrito-container {
   background: white;
   border-radius: 12px;
-  padding: 25px;
-  margin: 30px auto;
-  max-width: 800px;
   box-shadow: 0 8px 20px rgba(90, 31, 62, 0.1);
   position: relative;
   z-index: 1;
-}
-
-.carrito-container h2 {
   color: #5a1f3e;
-  margin-bottom: 20px;
-  font-size: 24px;
-  text-align: center;
 }
 
-/* Contenedor de los items del carrito con scroll */
 .carrito-items {
   max-height: 300px;
-  overflow-y: auto; /* Agrega una barra de scroll si los items exceden la altura máxima */
-  margin-bottom: 20px;
+  overflow-y: auto;
 }
 
-/* Producto individual en el carrito */
 .producto-carrito {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 0;
-  border-bottom: 1px solid #e6d7f0; /* Línea divisoria */
+  border-bottom: 1px solid #e6d7f0;
 }
 
-.producto-carrito span {
-  color: #5a1f3e;
-  font-weight: 500;
-}
-
-.producto-carrito button {
-  background: #e74c3c; /* Color rojo para el botón de eliminar */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 15px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-/* Total del carrito */
-.carrito-total {
-  font-size: 1.5em;
-  font-weight: bold;
-  text-align: right;
-  margin: 20px 0;
-  color: #800040;
-}
-
-/* Botón para añadir al carrito */
-.add-to-cart-btn {
-  background: #800040;
-  color: white;
-}
-
-.add-to-cart-btn:hover {
-  background: #5a1f3e;
+.content-box,
+.contact-form {
+  max-width: 600px; 
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(90, 31, 62, 0.1);
+  padding: 30px;
 }
 
 /* ==========================================================================
-   Estilos para la página de Detalle de Producto
+   8. Estilos Unificados de Botones (Estético Final)
    ========================================================================== */
 
-.product-detail-section {
-  padding: 60px 30px;
-  max-width: 1200px;
-  margin: 0 auto 80px;
-  background: rgba(255 255 255 / 0.9);
-  border-radius: 16px;
-  box-shadow: 0 12px 30px rgba(90, 31, 62, 0.12);
-  display: flex;
-  gap: 50px;
-  flex-wrap: wrap;
-  color: #5a1f3e;
+.btn {
+    border: none !important;
+    font-weight: 700 !important;
+    padding: 14px 25px !important; 
+    border-radius: 10px !important; 
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important; 
+    box-shadow: 0 4px 8px rgba(90, 31, 62, 0.1) !important; 
+    text-transform: uppercase;
+    letter-spacing: 0.8px; 
 }
 
-/* Slider de imágenes del producto */
-.product-image-slider {
-  flex: 1 1 450px; /* Flex-grow, flex-shrink, flex-basis */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* 1. Botón Principal (Marca) */
+#proceder-pago, 
+.add-to-cart-btn,
+.product-card .btn { 
+    background-color: #800040 !important; 
+    color: white !important;
 }
 
-.slider-container {
-  position: relative;
-  width: 100%;
-  max-width: 500px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 6px 20px rgba(90, 31, 62, 0.1);
-  background: white;
+#proceder-pago:hover,
+.add-to-cart-btn:hover,
+.product-card .btn:hover {
+    background-color: #5a1f3e !important; 
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 20px rgba(90, 31, 62, 0.25) !important; 
 }
 
-.main-product-image {
-  width: 100%;
-  height: 450px;
-  object-fit: contain;
-  background: #fff;
-  display: block;
-}
-
-/* Botones de navegación del slider */
-.slider-nav {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  transform: translateY(-50%);
-  padding: 0 15px;
-  pointer-events: none; /* Permite hacer clic a través de la capa de navegación */
-}
-
-.slider-btn {
-  pointer-events: all; /* Hace que los botones sean clickeables */
-  background: rgba(128, 0, 64, 0.75);
-  border: none;
-  color: white;
-  font-size: 1.8rem;
-  padding: 10px 16px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  user-select: none; /* Evita que el texto del botón sea seleccionado */
-}
-
-.slider-btn:hover {
-  background: #5a1f3e;
-}
-
-/* Contenedor de miniaturas */
-.thumbnail-container {
-  margin-top: 20px;
-  display: flex;
-  gap: 12px;
-  overflow-x: auto; /* Scroll horizontal si hay muchas miniaturas */
-  padding-bottom: 5px;
-  justify-content: center;
-  max-width: 500px;
-}
-
-.thumbnail {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 2px solid transparent;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: border-color 0.3s ease, opacity 0.3s ease;
-  flex-shrink: 0; /* Evita que las miniaturas se encojan */
-}
-
-.thumbnail:hover,
-.thumbnail.active {
-  border-color: #800040; /* Resalta la miniatura activa o al pasar el ratón */
-  opacity: 1;
-}
-
-/* Información del producto */
-.product-info {
-  flex: 1 1 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 25px;
-}
-
-.product-title-detail {
-  font-size: 2.8rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: #5a1f3e;
-}
-
-.product-description {
-  font-size: 1.15rem;
-  line-height: 1.6;
-  color: #6b4a6e;
-  min-height: 90px;
-}
-
-.product-price {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: #800040;
-}
-
-/* Opciones del producto (talla, cantidad) */
-.product-options {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.size-selector label,
-.quantity-selector label {
-  font-weight: 600;
-  font-size: 1rem;
-  margin-right: 10px;
-  color: #5a1f3e;
-}
-
-.size-select,
-.quantity-input {
-  padding: 10px 15px;
-  border-radius: 8px;
-  border: 1.5px solid #e6d7f0;
-  font-size: 1rem;
-  color: #5a1f3e;
-  background: white;
-  min-width: 80px;
-  transition: border-color 0.3s ease;
-}
-
-.size-select:focus,
-.quantity-input:focus {
-  outline: none;
-  border-color: #800040;
-}
-
-.quantity-input {
-  width: 70px;
-  text-align: center;
-}
-
-/* Botones de acción (Añadir al carrito, Comprar ahora) */
-.product-actions {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.product-actions .btn {
-  flex: 1 1 180px;
-  padding: 16px 0;
-  font-size: 1.15rem;
-  border-radius: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  border: none;
-  user-select: none;
-}
-
-.add-to-cart-btn {
-  background-color: #800040;
-  color: white;
-}
-
-.add-to-cart-btn:hover {
-  background-color: #5a1f3e;
-}
-
+/* 2. Botón de Compra Rápida (WhatsApp) */
 .buy-now-btn {
-  background-color: #5a1f3e;
-  color: white;
+    background-color: #25D366 !important; 
+    color: white !important;
+    box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3) !important;
 }
 
 .buy-now-btn:hover {
-  background-color: #800040;
+    background-color: #128C7E !important; 
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4) !important;
 }
+
+/* 3. Botón de Búsqueda */
+.search-button {
+    background: #800040 !important;
+    color: white !important;
+    font-weight: 700 !important;
+    transition: all 0.3s ease;
+    border-radius: 0 10px 10px 0 !important; 
+    padding: 10px 15px !important; 
+    height: 100%; 
+    box-shadow: none !important; 
+}
+
+/* 4. Botón de Envío de Formulario */
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    background-color: #800040;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 8px rgba(90, 31, 62, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
 
 /* ==========================================================================
-   Diseño Responsivo (Media Queries)
+   9. Notificación Toast (Funcionalidad JS)
    ========================================================================== */
 
-/* Para tablets y pantallas medianas */
-@media (max-width: 1024px) {
-  .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
-
-  .product-card {
-    height: 450px;
-  }
-
-  .product-img {
-    height: 300px;
-  }
-  
-  .product-detail-section {
-    flex-direction: column;
-    padding: 40px 20px;
-  }
-
-  .product-image-slider,
-  .product-info {
-    max-width: 100%;
-    flex: none;
-  }
-
-  .main-product-image {
-    height: 350px;
-  }
-
-  .thumbnail-container {
-    max-width: 100%;
-  }
+#toast-notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #5a1f3e; 
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1050; 
+    font-weight: 600;
 }
- /* Estilos específicos para el formulario de contacto */
-        .contact-form {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 12px;
-            padding: 40px;
-            max-width: 800px;
-            margin: 0 auto;
-            color: #5a1f3e;
-        }
-        .contact-form .form-group {
-            margin-bottom: 25px;
-        }
-        .contact-form label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        .contact-form .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1.5px solid #e6d7f0;
-            font-size: 1rem;
-            color: #5a1f3e;
-            background: white;
-            transition: border-color 0.3s ease;
-        }
-        .contact-form .form-control:focus {
-            outline: none;
-            border-color: #800040;
-        }
-        .contact-form textarea.form-control {
-            height: 150px;
-            resize: vertical;
-        }
-        .contact-form .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: white;
-            background-color: #800040;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .contact-form .submit-btn:hover {
-            background-color: #5a1f3e;
-        }
-/* Para móviles */
+
+#toast-notification.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* ==========================================================================
+   10. Media Queries (Responsividad)
+   ========================================================================== */
+
+/* CLASE QUE SERÁ APLICADA CON JS PARA OCULTAR EL HEADER EN MÓVILES */
 @media (max-width: 768px) {
-  .header {
-    padding: 12px 15px;
-    flex-direction: column;
-    gap: 15px;
-  }
+    /* El header horizontal se oculta cuando se desplaza hacia abajo */
+    .header-hidden {
+        transform: translateY(-100%); 
+    }
+    
+    /* En móviles, el header vuelve a ser vertical para ahorrar espacio */
+    .header {
+        flex-direction: column; 
+        padding: 15px; 
+    }
 
-  .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
+    .logo {
+        transform: scale(1.5);
+        height: 60px;
+        margin-bottom: 10px;
+    }
+    
+    .nav-menu {
+        flex-wrap: wrap; 
+        margin: 0 0 10px 0;
+        justify-content: center;
+    }
+    
+    .search-container {
+        max-width: 100%;
+    }
+    
+    /* El padding-top debe ajustarse a la altura del header vertical en móviles */
+    .main-content,
+    .product-detail-section {
+        padding-top: 220px !important; 
+    }
 
-  .product-card {
-    height: 400px;
-  }
+    .product-card {
+        height: 400px;
+    }
+    
+    .product-img {
+        height: 250px;
+    }
+    
+    .section-title {
+        font-size: 28px;
+    }
+    
+    #toast-notification {
+        bottom: 15px;
+        right: 15px;
+        left: 15px;
+        text-align: center;
+    }
+}
 
-  .product-img {
-    height: 250px;
-  }
 
-  .section-title {
-    font-size: 28px;
-  }
+/* Estilos para tabletas y escritorios (Header Horizontal) */
+@media (min-width: 769px) {
+    /* Asegura la separación adecuada en escritorio */
+    .main-content,
+    .product-detail-section {
+      padding-top: 100px !important; 
+    }
+}
 
-  .main-content {
-    padding: 60px 15px 15px;
-  }
-  
+@media (max-width: 992px) {
   .product-title-detail {
-    font-size: 2rem;
-  }
-
-  .product-price {
     font-size: 1.8rem;
+    margin-top: 20px;
   }
-
-  .product-actions .btn {
-    flex: 1 1 100%;
-  }
-
-  .product-options {
-    flex-direction: column;
-    gap: 15px;
-  }
-    
-       
-    
 }
