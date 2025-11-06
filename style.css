@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display.swap");
 
-/* ==========================================================================
-   1. Estilos Globales (Reset, Body, Títulos)
-   ========================================================================== */
+:root {
+  --header-height-desktop: 100px;
+  --header-height-mobile: 220px;
+}
 
-/* Reseteo básico */
 * {
   margin: 0;
   padding: 0;
@@ -15,7 +15,6 @@
 body {
   min-height: 100vh;
   background: #f5f0f8;
-  background-image: url("fondo.jpg"); /* CORREGIDO */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -24,7 +23,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Capa semitransparente sobre el fondo */
 body::before {
   content: "";
   position: fixed;
@@ -36,7 +34,6 @@ body::before {
   z-index: -1;
 }
 
-/* Título de sección estándar */
 .section-title {
   color: #5a1f3e;
   font-size: 36px;
@@ -58,46 +55,39 @@ body::before {
   border-radius: 4px;
 }
 
-/* ==========================================================================
-   2. Layout y Navegación (Header, Menú, Búsqueda)
-   ========================================================================== */
-
-/* Contenedor principal del Header */
 .header {
   width: 100%;
   padding: 15px 50px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(5px);
-  display: flex; 
-  flex-direction: row; 
-  justify-content: space-between; 
-  align-items: center; 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   box-shadow: 0 4px 12px rgba(90, 31, 62, 0.15);
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-  transition: transform 0.4s ease-out; 
+  transition: transform 0.4s ease-out;
 }
 
-/* Estilo base del logo (para móvil) */
 .logo {
-  height: 40px; 
+  height: 40px;
   width: auto;
   object-fit: contain;
   display: block;
-  transform: scale(1.0); 
-  margin: 0; 
+  transform: scale(1.0);
+  margin: 0;
 }
 
-/* Menú de navegación */
 .nav-menu {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    padding: 0;
-    margin: 0 30px; 
-    flex-grow: 1; 
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0 30px;
+  flex-grow: 1;
 }
 
 .nav-menu .nav-link {
@@ -120,43 +110,35 @@ body::before {
   color: #800040;
 }
 
-/* Estilo para el enlace activo (controlado por JS) */
 .nav-menu .active-nav-link {
-    background: #800040 !important; 
-    color: white !important;
-    transform: scale(1.05) !important;
-    box-shadow: 0 4px 10px rgba(128, 0, 64, 0.4) !important;
+  background: #800040 !important;
+  color: white !important;
+  transform: scale(1.05) !important;
+  box-shadow: 0 4px 10px rgba(128, 0, 64, 0.4) !important;
 }
 
-/* Contenedor de búsqueda (base) */
 .search-container {
-    width: auto; 
-    max-width: 250px; 
-    display: flex;
+  width: auto;
+  max-width: 250px;
+  display: flex;
 }
 
 .search-input {
-    flex-grow: 1;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 10px 0 0 10px;
+  flex-grow: 1;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 10px 0 0 10px;
 }
 
-/* Contenedores de contenido principal */
 .main-content,
 .product-detail-section {
-  padding-top: 100px !important; 
+  padding-top: var(--header-height-desktop) !important;
 }
 
-/* ==========================================================================
-   3. Componentes de Página (Grid, Detalle, Carrito)
-   ========================================================================== */
-
-/* --- Grid de Productos (index.html) --- */
 .products-grid {
-    --bs-gutter-x: 2.5rem;
-    --bs-gutter-y: 2.5rem;
-    padding: 20px 0;
+  --bs-gutter-x: 2.5rem;
+  --bs-gutter-y: 2.5rem;
+  padding: 20px 0;
 }
 
 .product-card {
@@ -167,7 +149,7 @@ body::before {
   transition: all 0.4s ease;
   cursor: pointer;
   border: 1px solid rgba(220, 200, 220, 0.3);
-  height: 500px; 
+  height: 500px;
   display: flex;
   flex-direction: column;
 }
@@ -203,7 +185,6 @@ body::before {
   justify-content: center;
 }
 
-/* --- Detalle de Producto (product-detail.html) --- */
 .product-detail-container {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 16px;
@@ -237,54 +218,53 @@ body::before {
   margin-bottom: 30px;
 }
 
-/* --- Carrusel de Imágenes (product-detail.html) --- */
 .slider-container {
-    position: relative;
-    margin-bottom: 15px;
-    padding: 0;
+  position: relative;
+  margin-bottom: 15px;
+  padding: 0;
 }
 
 .main-product-image {
-    max-height: 500px; 
-    width: auto;
-    margin: 0 auto;
-    display: block;
+  max-height: 500px;
+  width: auto;
+  margin: 0 auto;
+  display: block;
 }
 
 .slider-nav {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-    pointer-events: none;
-    padding: 0 10px;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  pointer-events: none;
+  padding: 0 10px;
 }
 
 .slider-btn {
-    pointer-events: auto;
-    background: rgba(255, 255, 255, 0.8);
-    border: none;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    color: #5a1f3e;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-    z-index: 10;
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: #5a1f3e;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  z-index: 10;
 }
 
 .slider-btn:hover {
-    background: #800040;
-    color: white;
-    transform: scale(1.1);
-    box-shadow: 0 6px 15px rgba(128, 0, 64, 0.3);
+  background: #800040;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(128, 0, 64, 0.3);
 }
 
 .thumbnail-container {
@@ -312,7 +292,6 @@ body::before {
   box-shadow: 0 2px 8px rgba(128, 0, 64, 0.2);
 }
 
-/* --- Carrito, Contacto y Nosotros --- */
 .carrito-container {
   background: white;
   border-radius: 12px;
@@ -337,213 +316,185 @@ body::before {
 
 .content-box,
 .contact-form {
-  max-width: 600px; 
+  max-width: 600px;
   background: white;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(90, 31, 62, 0.1);
   padding: 30px;
 }
 
-/* ==========================================================================
-   4. Componentes Compartidos (Botones, Toast)
-   ========================================================================== */
-
-/* --- Estilos Unificados de Botones --- */
 .btn {
-    border: none !important;
-    font-weight: 700 !important;
-    padding: 14px 25px !important; 
-    border-radius: 10px !important; 
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important; 
-    box-shadow: 0 4px 8px rgba(90, 31, 62, 0.1) !important; 
-    text-transform: uppercase;
-    letter-spacing: 0.8px; 
+  border: none !important;
+  font-weight: 700 !important;
+  padding: 14px 25px !important;
+  border-radius: 10px !important;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  box-shadow: 0 4px 8px rgba(90, 31, 62, 0.1) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
 }
 
-/* Botón Principal (Marca) */
-#proceder-pago, 
+#proceder-pago,
 .add-to-cart-btn,
-.product-card .btn { 
-    background-color: #800040 !important; 
-    color: white !important;
+.product-card .btn {
+  background-color: #800040 !important;
+  color: white !important;
 }
 
 #proceder-pago:hover,
 .add-to-cart-btn:hover,
 .product-card .btn:hover {
-    background-color: #5a1f3e !important; 
-    transform: translateY(-3px); 
-    box-shadow: 0 10px 20px rgba(90, 31, 62, 0.25) !important; 
+  background-color: #5a1f3e !important;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(90, 31, 62, 0.25) !important;
 }
 
-/* Botón de Compra Rápida (WhatsApp) */
 .buy-now-btn {
-    background-color: #25D366 !important; 
-    color: white !important;
-    box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3) !important;
+  background-color: #25d366 !important;
+  color: white !important;
+  box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3) !important;
 }
 
 .buy-now-btn:hover {
-    background-color: #128C7E !important; 
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4) !important;
+  background-color: #128C7E !important;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4) !important;
 }
 
-/* Botón de Búsqueda */
 .search-button {
-    background: #800040 !important;
-    color: white !important;
-    font-weight: 700 !important;
-    transition: all 0.3s ease;
-    border-radius: 0 10px 10px 0 !important; 
-    padding: 10px 15px !important; 
-    height: 100%; 
-    box-shadow: none !important; 
+  background: #800040 !important;
+  color: white !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease;
+  border-radius: 0 10px 10px 0 !important;
+  padding: 10px 15px !important;
+  height: 100% !important;
+  box-shadow: none !important;
 }
 
-/* Botón de Envío de Formulario */
 .submit-btn {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: white;
-    background-color: #800040;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 4px 8px rgba(90, 31, 62, 0.1);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
+  display: block;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  background-color: #800040;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 8px rgba(90, 31, 62, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
 }
 
-/* --- Notificación Toast (Controlada por JS) --- */
 #toast-notification {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background-color: #5a1f3e; 
-    color: white;
-    padding: 15px 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 1050; 
-    font-weight: 600;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #5a1f3e;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1050;
+  font-weight: 600;
 }
 
 #toast-notification.show {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
-/* ==========================================================================
-   5. Responsividad (Media Queries)
-   ========================================================================== */
-
-/* --- Estilos para Móvil (max-width: 768px) --- */
 @media (max-width: 768px) {
-    
-    /* Header que se oculta al hacer scroll */
-    .header-hidden {
-        transform: translateY(-100%); 
-    }
-    
-    /* Header en formato vertical */
-    .header {
-        flex-direction: column; 
-        padding: 15px; 
-    }
+  .header-hidden {
+    transform: translateY(-100%);
+  }
 
-    /* Logo más grande en móvil */
-    .logo {
-        transform: scale(1.5);
-        height: 60px;
-        margin-bottom: 10px;
-    }
-    
-    .nav-menu {
-        flex-wrap: wrap; 
-        margin: 0 0 10px 0;
-        justify-content: center;
-    }
-    
-    .search-container {
-        max-width: 100%;
-    }
-    
-    /* Ajuste de padding para el header vertical */
-    .main-content,
-    .product-detail-section {
-        padding-top: 220px !important; 
-    }
+  .header {
+    flex-direction: column;
+    padding: 15px;
+  }
 
-    .product-card {
-        height: 400px;
-    }
-    
-    .product-img {
-        height: 250px;
-    }
-    
-    .section-title {
-        font-size: 28px;
-    }
-    
-    #toast-notification {
-        bottom: 15px;
-        right: 15px;
-        left: 15px;
-        text-align: center;
-    }
+  .logo {
+    transform: scale(1.5);
+    height: 60px;
+    margin-bottom: 10px;
+  }
+
+  .nav-menu {
+    flex-wrap: wrap;
+    margin: 0 0 10px 0;
+    justify-content: center;
+  }
+
+  .search-container {
+    max-width: 100%;
+  }
+
+  .main-content,
+  .product-detail-section {
+    padding-top: var(--header-height-mobile) !important;
+  }
+
+  .product-card {
+    height: 400px;
+  }
+
+  .product-img {
+    height: 250px;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  #toast-notification {
+    bottom: 15px;
+    right: 15px;
+    left: 15px;
+    text-align: center;
+  }
 }
 
-
-/* --- Estilos para Escritorio (min-width: 769px) --- */
 @media (min-width: 769px) {
-    
-    /* Ajuste de padding para el header horizontal */
-    .main-content,
-    .product-detail-section {
-      padding-top: 100px !important; 
-    }
+  .main-content,
+  .product-detail-section {
+    padding-top: var(--header-height-desktop) !important;
+  }
 
-    /* Logo superpuesto */
-    .logo {
-      height: 90px; 
-      width: auto;
-      position: absolute;
-      top: 50%;
-      left: 50px; 
-      transform: translateY(-50%);
-      z-index: 1001;
-      transition: transform 0.3s ease-out;
-    }
+  .logo {
+    height: 90px;
+    width: auto;
+    position: absolute;
+    top: 50%;
+    left: 50px;
+    transform: translateY(-50%);
+    z-index: 1001;
+    transition: transform 0.3s ease-out;
+  }
 
-    .logo:hover {
-      transform: translateY(-50%) scale(1.05);
-    }
+  .logo:hover {
+    transform: translateY(-50%) scale(1.05);
+  }
 
-    /* Búsqueda superpuesta (para centrar nav) */
-    .search-container {
-      position: absolute;
-      right: 50px; 
-      top: 50%;
-      transform: translateY(-50%);
-      width: 250px; 
-    }
+  .search-container {
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 250px;
+  }
 
-    /* Fuerza al contenedor <nav> a ocupar todo el ancho */
-    .header nav {
-      width: 100%;
-    }
+  .header nav {
+    width: 100%;
+  }
 }
 
-/* --- Ajustes para Tabletas (max-width: 992px) --- */
 @media (max-width: 992px) {
   .product-title-detail {
     font-size: 1.8rem;
@@ -551,13 +502,8 @@ body::before {
   }
 }
 
-/* ==========================================================================
-   6. NUEVO: Hero Section (index.html)
-   ========================================================================== */
-
 .hero-section {
-  /* Usa la nueva imagen de fondo */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('fondo.png');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("fondo.png");
   background-size: cover;
   background-position: center;
   height: 60vh;
@@ -566,47 +512,45 @@ body::before {
   justify-content: center;
   text-align: center;
   color: white;
-  /* Se superpone al header, así que necesita el padding */
-  padding-top: 100px; 
+  padding-top: 100px;
 }
 
 .hero-content h1 {
   font-size: 3.5rem;
   font-weight: 900;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 .hero-content p {
   font-size: 1.5rem;
   font-weight: 600;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
   margin-bottom: 30px;
 }
 
 .hero-btn {
-    background-color: white !important;
-    color: #800040 !important;
-    padding: 15px 30px !important;
-    font-size: 1.1rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+  background-color: white !important;
+  color: #800040 !important;
+  padding: 15px 30px !important;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
 }
 
 .hero-btn:hover {
-    background-color: #f0f0f0 !important;
-    color: #5a1f3e !important;
-    transform: translateY(-3px) !important;
+  background-color: #f0f0f0 !important;
+  color: #5a1f3e !important;
+  transform: translateY(-3px) !important;
 }
 
-/* Ajuste de padding en móvil para el hero */
 @media (max-width: 768px) {
-    .hero-section {
-        padding-top: 220px !important;
-        height: 70vh;
-    }
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-    .hero-content p {
-        font-size: 1.2rem;
-    }
+  .hero-section {
+    padding-top: var(--header-height-mobile) !important;
+    height: 70vh;
+  }
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  .hero-content p {
+    font-size: 1.2rem;
+  }
 }

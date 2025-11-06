@@ -1,5 +1,3 @@
-// --- DATOS DE PRODUCTOS ---
-// Productos 1, 2 y 3 están marcados como "destacado: true"
 const productos = [
     { 
       id: 1, 
@@ -8,16 +6,16 @@ const productos = [
       imagen: "img/1.png", 
       imagenesAdicionales: ["img/1.1.png", "img/1.png"], 
       descripcion: "Una prenda cómoda y elegante para cualquier ocasión.",
-      destacado: true // <--- AÑADIDO
+      destacado: true 
     },
     {
       id: 2,
       nombre: "jean bolsillos",
-      precio: 120000,
+      precio: 120.000,
       imagen: "img/2.png",
-      imagenesAdicionales: ["img/2.1.png", "img/2.2.jpg", "img/2.3.jpg", "img/2.4.jpg", "img/2.5.jpg", "img/2.6.jpg"],
+      imagenesAdicionales: [ "img/2.png", "img/2.1.png", "img/2.2.jpg", "img/2.3.jpg", "img/2.4.jpg", "img/2.5.jpg", "img/2.6.jpg"],
       descripcion: "Ideal para el día a día, con un diseño moderno.",
-      destacado: true // <--- MANTENIDO
+      destacado: true 
     },
     { 
       id: 3, 
@@ -26,7 +24,7 @@ const productos = [
       imagen: "img/3.png", 
       imagenesAdicionales: ["img/3.1.png", "img/3.png"], 
       descripcion: "Perfecta para un look casual y relajado.",
-      destacado: true // <--- AÑADIDO
+      destacado: true 
     },
     { 
       id: 4, 
@@ -35,7 +33,7 @@ const productos = [
       imagen: "img/4.png", 
       imagenesAdicionales: ["img/4.1.png", "img/4.png"], 
       descripcion: "Diseño exclusivo con materiales de alta calidad."
-      // "destacado: true" ha sido eliminado
+      
     },
     { id: 5, nombre: "Prenda 5", precio: 28.00, imagen: "img/5.png", imagenesAdicionales: ["img/5.1.png", "img/5.png"], descripcion: "Estilo fresco y juvenil." },
     { 
@@ -45,11 +43,10 @@ const productos = [
       imagen: "img/6.png", 
       imagenesAdicionales: ["img/6.1.png", "img/6.png"], 
       descripcion: "Elegancia y confort en una sola prenda."
-      // "destacado: true" ha sido eliminado
+      
     }
 ];
 
-// --- CARRITO DE COMPRAS ---
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 function mostrarToast(message) {
@@ -65,41 +62,39 @@ function mostrarToast(message) {
     }, 3000);
 }
 
-function actualizarCarrito() {
+function actualizarCarrito(itemsCarritoDiv, totalCarritoSpan) {
     localStorage.setItem('carrito', JSON.stringify(carrito));
     
-    const itemsCarritoDiv = document.getElementById('items-carrito');
-    const totalCarritoSpan = document.getElementById('total-carrito');
-
-    if (itemsCarritoDiv) { // Solo actualiza si el carrito existe en la página
-        itemsCarritoDiv.innerHTML = '';
-        let total = 0;
-
-        if (carrito.length === 0) {
-            itemsCarritoDiv.innerHTML = '<p class="text-center mt-3">El carrito está vacío.</p>';
-        } else {
-            carrito.forEach((item, index) => {
-                const subtotal = item.precio * item.cantidad;
-                total += subtotal;
-
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'producto-carrito';
-                itemDiv.innerHTML = `
-                    <span>${item.cantidad}x ${item.nombre} (T: ${item.talla})</span>
-                    <span>$${subtotal.toFixed(2)} 
-                        <button class="btn btn-sm btn-danger ms-2" onclick="quitarDelCarrito(${index})">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </span>
-                `;
-                itemsCarritoDiv.appendChild(itemDiv);
-            });
-        }
-        if (totalCarritoSpan) {
-            totalCarritoSpan.textContent = total.toFixed(2);
-        }
+    if (!itemsCarritoDiv || !totalCarritoSpan) {
+        return;
     }
+
+    itemsCarritoDiv.innerHTML = '';
+    let total = 0;
+
+    if (carrito.length === 0) {
+        itemsCarritoDiv.innerHTML = '<p class="text-center mt-3">El carrito está vacío.</p>';
+    } else {
+        carrito.forEach((item, index) => {
+            const subtotal = item.precio * item.cantidad;
+            total += subtotal;
+
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'producto-carrito';
+            itemDiv.innerHTML = `
+                <span>${item.cantidad}x ${item.nombre} (T: ${item.talla})</span>
+                <span>$${subtotal.toFixed(2)} 
+                    <button class="btn btn-sm btn-danger ms-2" onclick="quitarDelCarrito(${index})">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </span>
+            `;
+            itemsCarritoDiv.appendChild(itemDiv);
+        });
+    }
+    totalCarritoSpan.textContent = total.toFixed(2);
 }
+
 
 function agregarAlCarrito(id, talla, cantidad) {
     const producto = productos.find(p => p.id === id);
@@ -118,20 +113,22 @@ function agregarAlCarrito(id, talla, cantidad) {
             cantidad: cantidad
         });
     }
-    actualizarCarrito();
+    
+    const itemsCarritoDiv = document.getElementById('items-carrito');
+    const totalCarritoSpan = document.getElementById('total-carrito');
+    actualizarCarrito(itemsCarritoDiv, totalCarritoSpan);
+
     mostrarToast(`¡${producto.nombre} (T:${talla}) agregado!`);
 }
 
 function quitarDelCarrito(index) {
     carrito.splice(index, 1);
-    actualizarCarrito();
+    
+    const itemsCarritoDiv = document.getElementById('items-carrito');
+    const totalCarritoSpan = document.getElementById('total-carrito');
+    actualizarCarrito(itemsCarritoDiv, totalCarritoSpan);
 }
 
-// --- RENDERIZADO DE PRODUCTOS ---
-
-/**
- * Genera el HTML de una tarjeta de producto
- */
 function crearTarjetaProductoHTML(producto) {
     return `
         <div class="col">
@@ -146,9 +143,7 @@ function crearTarjetaProductoHTML(producto) {
     `;
 }
 
-/**
- * Muestra TODOS los productos en productos.html
- */
+
 function mostrarTodosProductos() {
     const productosGrid = document.getElementById('productos-grid-todos');
     if (!productosGrid) return;
@@ -159,9 +154,7 @@ function mostrarTodosProductos() {
     });
 }
 
-/**
- * Muestra SOLO productos destacados en index.html
- */
+
 function mostrarProductosDestacados() {
     const productosDestacadosGrid = document.getElementById('productos-destacados');
     if (!productosDestacadosGrid) return;
@@ -174,8 +167,6 @@ function mostrarProductosDestacados() {
     });
 }
 
-
-// --- DETALLE DE PRODUCTO (product-detail.html) ---
 
 let currentImageIndex = 0;
 let currentProduct = null;
@@ -256,77 +247,10 @@ function cargarDetalleProducto() {
     }
 }
 
-
-// --- LÓGICA DEL HEADER (Ocultar en scroll) ---
-
-let lastScrollY = 0;
-const header = document.querySelector('.header');
-const mobileBreakpoint = 768; 
-
-function handleHeaderVisibility() {
-    if (!header) return;
-    
-    if (window.matchMedia(`(max-width: ${mobileBreakpoint}px)`).matches) {
-        const currentScrollY = window.scrollY;
-        if (currentScrollY > header.offsetHeight) {
-            if (currentScrollY > lastScrollY) {
-                header.classList.add('header-hidden');
-            } else if (currentScrollY < lastScrollY) {
-                header.classList.remove('header-hidden');
-            }
-        } else if (currentScrollY < 100) {
-            header.classList.remove('header-hidden');
-        }
-        lastScrollY = currentScrollY;
-    } else {
-        header.classList.remove('header-hidden');
-    }
-}
-
-// =========================================================================
-// INICIALIZACIÓN (Al cargar la página)
-// =========================================================================
-
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- LÓGICA PARA RESALTAR ENLACE ACTIVO (Actualizada) ---
-    function highlighActiveLink() {
-        const navLinks = document.querySelectorAll('.nav-menu .nav-link');
-        let currentPage = window.location.pathname.split('/').pop();
-
-        if (currentPage === '') currentPage = 'index.html';
-
-        navLinks.forEach(link => {
-            const linkPage = link.getAttribute('href').split('/').pop();
-            
-            // Caso especial: Resaltar "Productos" también en la página de detalle
-            if (linkPage === 'productos.html' && (currentPage === 'productos.html' || currentPage === 'product-detail.html')) {
-                link.classList.add('active-nav-link');
-            } 
-            // Caso general
-            else if (linkPage === currentPage) {
-                link.classList.add('active-nav-link');
-            }
-        });
-    }
-    highlighActiveLink();
-
-    // --- Cargar productos según la página ---
-    if (document.getElementById('productos-grid-todos')) { // Estamos en productos.html
-        mostrarTodosProductos();
-    } else if (document.getElementById('productos-destacados')) { // Estamos en index.html
-        mostrarProductosDestacados();
-    } else if (document.querySelector('.product-detail-container')) { // Estamos en product-detail.html
-        cargarDetalleProducto();
-    }
-
-    // Inicializar carrito (siempre)
-    actualizarCarrito();
-
-    // --- LÓGICA DEL BOTÓN DE PAGO (Carrito) ---
+function setupBotonPagar() {
     const botonPagar = document.getElementById('proceder-pago');
     
-    if (botonPagar) { // Solo se ejecutará si el botón existe (en productos.html)
+    if (botonPagar) { 
         botonPagar.addEventListener('click', () => {
             if (carrito.length === 0) {
                 mostrarToast('El carrito está vacío.');
@@ -345,9 +269,26 @@ document.addEventListener('DOMContentLoaded', () => {
             window.open(url, '_blank');
         });
     }
+}
 
-    // --- Listeners para el Header ---
-    window.addEventListener('scroll', handleHeaderVisibility);
-    window.addEventListener('resize', handleHeaderVisibility);
-    handleHeaderVisibility(); 
+document.addEventListener('DOMContentLoaded', () => {
+    
+    const page = document.body.dataset.page;
+
+    if (page === 'home') {
+        mostrarProductosDestacados();
+    } 
+    else if (page === 'productos') {
+        mostrarTodosProductos();
+        
+        const itemsCarritoDiv = document.getElementById('items-carrito');
+        const totalCarritoSpan = document.getElementById('total-carrito');
+        actualizarCarrito(itemsCarritoDiv, totalCarritoSpan);
+        
+        setupBotonPagar();
+    } 
+    else if (page === 'detalle-producto') {
+        cargarDetalleProducto();
+    }
+
 });
