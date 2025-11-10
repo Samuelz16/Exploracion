@@ -1,58 +1,60 @@
 const productos = [
-    {
-        id: 1,
-        nombre: "Prenda 1",
-        precio: 100000.000,
-        imagen: "img/1.png",
-        imagenesAdicionales: ["img/1.1.png", "img/1.png"],
-        descripcion: "Una prenda cómoda y elegante para cualquier ocasión.",
-        destacado: true
+    { 
+      id: 1, 
+      nombre: "Coolombia", 
+      precio: 100000, 
+      imagen: "img/1.png", 
+      imagenesAdicionales: ["img/1.1.png", "img/1.png"], 
+      descripcion: "Una prenda cómoda y elegante para cualquier ocasión.",
+      destacado: true 
     },
     {
-        id: 2,
-        nombre: "jean bolsillos",
-        precio: 120000,
-        imagen: "img/2.png",
-        imagenesAdicionales: ["img/2.png", "img/2.1.png", "img/2.2.jpg", "img/2.3.jpg", "img/2.4.jpg", "img/2.5.jpg", "img/2.6.jpg"],
-        descripcion: "Ideal para el día a día, con un diseño moderno.",
-        destacado: true
+      id: 2,
+      nombre: "jean bolsillos",
+      precio: 120000,
+      imagen: "img/2.png",
+      imagenesAdicionales: [ "img/2.png", "img/2.1.png", "img/2.2.jpg", "img/2.3.jpg", "img/2.4.jpg", "img/2.5.jpg", "img/2.6.jpg"],
+      descripcion: "Ideal para el día a día, con un diseño moderno.",
+      destacado: true 
     },
-    {
-        id: 3,
-        nombre: "Prenda 3",
-        precio: 90000,
-        imagen: "img/3.png",
-        imagenesAdicionales: ["img/3.1.png", "img/3.png"],
-        descripcion: "Perfecta para un look casual y relajado.",
-        destacado: true
+    { 
+      id: 3, 
+      nombre: "jean floral", 
+      precio: 90000, 
+      imagen: "img/3.png", 
+      imagenesAdicionales: ["img/3.1.png", "img/3.png"], 
+      descripcion: "Perfecta para un look casual y relajado.",
+      destacado: true 
     },
-    {
-        id: 4,
-        nombre: "Prenda 4",
-        precio: 99900,
-        imagen: "img/4.png",
-        imagenesAdicionales: ["img/4.1.png", "img/4.png"],
-        descripcion: "Diseño exclusivo con materiales de alta calidad."
-
+    { 
+      id: 4, 
+      nombre: "Pantalon Guayacan", 
+      precio: 99900, 
+      imagen: "img/4.png", 
+      imagenesAdicionales: ["img/4.1.png", "img/4.png"], 
+      descripcion: "Diseño exclusivo con materiales de alta calidad."
+      
     },
-    {
-        id: 5,
-        nombre: "Prenda 5",
-        precio: 70000.00,
-        imagen: "img/5.png",
-        imagenesAdicionales: ["img/5.1.png", "img/5.png"],
-        descripcion: "Estilo fresco y juvenil."
-    },
-    {
-        id: 6,
-        nombre: "Prenda 6",
-        precio: 70000.00,
-        imagen: "img/6.png",
-        imagenesAdicionales: ["img/6.1.png", "img/6.png"],
-        descripcion: "Elegancia y confort en una sola prenda."
-
+    { id: 5, nombre: "Camisa Guayacan", precio: 70000, imagen: "img/5.png", imagenesAdicionales: ["img/5.1.png", "img/5.png"], descripcion: "Estilo fresco y juvenil." },
+    { 
+      id: 6, 
+      nombre: "falda esmeraldada", 
+      precio: 70000, 
+      imagen: "img/6.png", 
+      imagenesAdicionales: ["img/6.1.png", "img/6.png"], 
+      descripcion: "Elegancia y confort en una sola prenda."
+      
     }
 ];
+
+// --- NUEVA FUNCIÓN DE FORMATO DE PRECIO ---
+function formatCOP(precio) {
+  return new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0 
+  }).format(precio);
+}
 
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
@@ -63,7 +65,7 @@ function mostrarToast(message) {
 
     toastBody.textContent = message;
     toast.classList.add('show');
-
+    
     setTimeout(() => {
         toast.classList.remove('show');
     }, 3000);
@@ -71,7 +73,7 @@ function mostrarToast(message) {
 
 function actualizarCarrito(itemsCarritoDiv, totalCarritoSpan) {
     localStorage.setItem('carrito', JSON.stringify(carrito));
-
+    
     if (!itemsCarritoDiv || !totalCarritoSpan) {
         return;
     }
@@ -90,7 +92,7 @@ function actualizarCarrito(itemsCarritoDiv, totalCarritoSpan) {
             itemDiv.className = 'producto-carrito';
             itemDiv.innerHTML = `
                 <span>${item.cantidad}x ${item.nombre} (T: ${item.talla})</span>
-                <span>$${subtotal.toFixed(2)} 
+                <span>${formatCOP(subtotal)} 
                     <button class="btn btn-sm btn-danger ms-2" onclick="quitarDelCarrito(${index})">
                         <i class="fas fa-trash-alt"></i>
                     </button>
@@ -99,7 +101,8 @@ function actualizarCarrito(itemsCarritoDiv, totalCarritoSpan) {
             itemsCarritoDiv.appendChild(itemDiv);
         });
     }
-    totalCarritoSpan.textContent = total.toFixed(2);
+    // CAMBIO: Se usa formatCOP para el total
+    totalCarritoSpan.textContent = formatCOP(total);
 }
 
 
@@ -120,7 +123,7 @@ function agregarAlCarrito(id, talla, cantidad) {
             cantidad: cantidad
         });
     }
-
+    
     const itemsCarritoDiv = document.getElementById('items-carrito');
     const totalCarritoSpan = document.getElementById('total-carrito');
     actualizarCarrito(itemsCarritoDiv, totalCarritoSpan);
@@ -130,7 +133,7 @@ function agregarAlCarrito(id, talla, cantidad) {
 
 function quitarDelCarrito(index) {
     carrito.splice(index, 1);
-
+    
     const itemsCarritoDiv = document.getElementById('items-carrito');
     const totalCarritoSpan = document.getElementById('total-carrito');
     actualizarCarrito(itemsCarritoDiv, totalCarritoSpan);
@@ -143,7 +146,7 @@ function crearTarjetaProductoHTML(producto) {
                 <img src="${producto.imagen}" alt="${producto.nombre}" class="product-img">
                 <h3 class="product-title">${producto.nombre}</h3>
                 <div class="p-3 text-center">
-                    <span class="product-price-list">$${producto.precio.toFixed(2)}</span>
+                    <span class="product-price-list">${formatCOP(producto.precio)}</span>
                 </div>
             </div>
         </div>
@@ -168,7 +171,7 @@ function mostrarProductosDestacados() {
 
     productosDestacadosGrid.innerHTML = '';
     const destacados = productos.filter(p => p.destacado === true);
-
+    
     destacados.forEach(producto => {
         productosDestacadosGrid.innerHTML += crearTarjetaProductoHTML(producto);
     });
@@ -210,7 +213,7 @@ function cargarMiniaturas() {
         thumb.addEventListener('click', () => cambiarImagen(index));
         thumbnailContainer.appendChild(thumb);
     });
-    cambiarImagen(0);
+    cambiarImagen(0); 
 }
 
 function cargarDetalleProducto() {
@@ -221,7 +224,8 @@ function cargarDetalleProducto() {
     if (currentProduct) {
         document.getElementById('product-title-detail').textContent = currentProduct.nombre;
         document.getElementById('product-description').textContent = currentProduct.descripcion;
-        document.getElementById('product-price').textContent = `$${currentProduct.precio.toFixed(2)}`;
+        // CAMBIO: Se usa formatCOP para el precio
+        document.getElementById('product-price').textContent = formatCOP(currentProduct.precio);
         cargarMiniaturas();
 
         document.getElementById('prev-btn').addEventListener('click', () => cambiarImagen(currentImageIndex - 1));
@@ -242,7 +246,8 @@ function cargarDetalleProducto() {
                 cantidad: quantity,
                 precio: currentProduct.precio
             };
-            const mensaje = `- ${item.cantidad}x ${item.nombre} (Talla: ${item.talla})\nTotal: $${(item.precio * item.cantidad).toFixed(2)}`;
+            // CAMBIO: Se usa formatCOP para el total en WhatsApp
+            const mensaje = `- ${item.cantidad}x ${item.nombre} (Talla: ${item.talla})\nTotal: ${formatCOP(item.precio * item.cantidad)}`;
             const numeroWhatsApp = '+573154154446';
             const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(
                 `Hola, quiero comprar el siguiente producto:\n${mensaje}`
@@ -256,12 +261,12 @@ function cargarDetalleProducto() {
 
 function setupBotonPagar() {
     const botonPagar = document.getElementById('proceder-pago');
-
-    if (botonPagar) {
+    
+    if (botonPagar) { 
         botonPagar.addEventListener('click', () => {
             if (carrito.length === 0) {
                 mostrarToast('El carrito está vacío.');
-                return;
+                return; 
             }
             const numeroWhatsApp = '+573154154446';
             let mensaje = 'Hola CAPAZ, quiero proceder con el pago de mi carrito:\n\n';
@@ -271,7 +276,8 @@ function setupBotonPagar() {
                 mensaje += `- ${item.cantidad}x ${item.nombre} (Talla: ${item.talla})\n`;
                 total += subtotal;
             });
-            mensaje += `\n*Total del Pedido: $${total.toFixed(2)}*`;
+            // CAMBIO: Se usa formatCOP para el total en WhatsApp
+            mensaje += `\n*Total del Pedido: ${formatCOP(total)}*`;
             const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
         });
@@ -279,21 +285,21 @@ function setupBotonPagar() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
+    
     const page = document.body.dataset.page;
 
     if (page === 'home') {
         mostrarProductosDestacados();
-    }
+    } 
     else if (page === 'productos') {
         mostrarTodosProductos();
-
+        
         const itemsCarritoDiv = document.getElementById('items-carrito');
         const totalCarritoSpan = document.getElementById('total-carrito');
         actualizarCarrito(itemsCarritoDiv, totalCarritoSpan);
-
+        
         setupBotonPagar();
-    }
+    } 
     else if (page === 'detalle-producto') {
         cargarDetalleProducto();
     }
