@@ -1,8 +1,87 @@
+/* =========================================================================
+   1. LÓGICA DEL HEADER (Inyección y UI)
+   ========================================================================= */
+
+const headerHTML = `
+<header class="header">
+    <img src="img/logo 2.png" alt="Logo" class="logo">
+    <nav>
+        <ul class="nav-menu">
+            <li><a class="nav-link" href="index.html">Inicio</a></li>
+            <li><a class="nav-link" href="productos.html">Productos</a></li>
+            <li><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+            <li><a class="nav-link" href="contactanos.html">Contacto</a></li>
+        </ul>
+    </nav>
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Buscar productos...">
+        <button class="search-button">Buscar</button>
+    </div>
+</header>
+`;
+
+function injectHeader() {
+    const placeholder = document.getElementById('header-placeholder');
+    if (placeholder) {
+        placeholder.innerHTML = headerHTML;
+    }
+}
+
+let lastScrollY = 0;
+const mobileBreakpoint = 768; 
+
+function handleHeaderVisibility() {
+    const header = document.querySelector('.header'); 
+    if (!header) return;
+    
+    if (window.matchMedia(`(max-width: ${mobileBreakpoint}px)`).matches) {
+        const currentScrollY = window.scrollY;
+        
+        if (currentScrollY > header.offsetHeight) {
+            if (currentScrollY > lastScrollY) {
+                header.classList.add('header-hidden');
+            } else if (currentScrollY < lastScrollY) {
+                header.classList.remove('header-hidden');
+            }
+        } else if (currentScrollY < 100) {
+            header.classList.remove('header-hidden');
+        }
+        lastScrollY = currentScrollY;
+    } else {
+        header.classList.remove('header-hidden');
+    }
+}
+
+function highlighActiveLink() {
+    const navLinks = document.querySelectorAll('.nav-menu .nav-link');
+    let currentPage = window.location.pathname.split('/').pop();
+
+    if (currentPage === '') currentPage = 'index.html';
+
+    navLinks.forEach(link => {
+        const linkPage = link.getAttribute('href').split('/').pop();
+        
+        if (linkPage === 'productos.html' && (currentPage === 'productos.html' || currentPage === 'product-detail.html')) {
+            link.classList.add('active-nav-link');
+        } 
+        else if (linkPage === currentPage) {
+            link.classList.add('active-nav-link');
+        }
+    });
+}
+
+// Inyectamos el header INMEDIATAMENTE
+injectHeader();
+
+/* =========================================================================
+   2. LÓGICA DE PRODUCTOS Y CARRITO
+   ========================================================================= */
+
 const productos = [
     { 
       id: 1, 
-      nombre: "Coolombia", 
-      precio: 100000, 
+      nombre: "Prenda 1", 
+      precio: 25000, 
       imagen: "img/1.png", 
       imagenesAdicionales: ["img/1.1.png", "img/1.png"], 
       descripcion: "Una prenda cómoda y elegante para cualquier ocasión.",
@@ -19,8 +98,8 @@ const productos = [
     },
     { 
       id: 3, 
-      nombre: "jean floral", 
-      precio: 90000, 
+      nombre: "Prenda 3", 
+      precio: 20000, 
       imagen: "img/3.png", 
       imagenesAdicionales: ["img/3.1.png", "img/3.png"], 
       descripcion: "Perfecta para un look casual y relajado.",
@@ -28,18 +107,18 @@ const productos = [
     },
     { 
       id: 4, 
-      nombre: "Pantalon Guayacan", 
-      precio: 99900, 
+      nombre: "Prenda 4", 
+      precio: 35000, 
       imagen: "img/4.png", 
       imagenesAdicionales: ["img/4.1.png", "img/4.png"], 
       descripcion: "Diseño exclusivo con materiales de alta calidad."
       
     },
-    { id: 5, nombre: "Camisa Guayacan", precio: 70000, imagen: "img/5.png", imagenesAdicionales: ["img/5.1.png", "img/5.png"], descripcion: "Estilo fresco y juvenil." },
+    { id: 5, nombre: "Prenda 5", precio: 28000, imagen: "img/5.png", imagenesAdicionales: ["img/5.1.png", "img/5.png"], descripcion: "Estilo fresco y juvenil." },
     { 
       id: 6, 
-      nombre: "falda esmeraldada", 
-      precio: 70000, 
+      nombre: "Prenda 6", 
+      precio: 45000, 
       imagen: "img/6.png", 
       imagenesAdicionales: ["img/6.1.png", "img/6.png"], 
       descripcion: "Elegancia y confort en una sola prenda."
@@ -47,7 +126,6 @@ const productos = [
     }
 ];
 
-// --- NUEVA FUNCIÓN DE FORMATO DE PRECIO ---
 function formatCOP(precio) {
   return new Intl.NumberFormat('es-CO', {
     style: 'currency',
@@ -101,7 +179,6 @@ function actualizarCarrito(itemsCarritoDiv, totalCarritoSpan) {
             itemsCarritoDiv.appendChild(itemDiv);
         });
     }
-    // CAMBIO: Se usa formatCOP para el total
     totalCarritoSpan.textContent = formatCOP(total);
 }
 
@@ -224,7 +301,6 @@ function cargarDetalleProducto() {
     if (currentProduct) {
         document.getElementById('product-title-detail').textContent = currentProduct.nombre;
         document.getElementById('product-description').textContent = currentProduct.descripcion;
-        // CAMBIO: Se usa formatCOP para el precio
         document.getElementById('product-price').textContent = formatCOP(currentProduct.precio);
         cargarMiniaturas();
 
@@ -246,7 +322,6 @@ function cargarDetalleProducto() {
                 cantidad: quantity,
                 precio: currentProduct.precio
             };
-            // CAMBIO: Se usa formatCOP para el total en WhatsApp
             const mensaje = `- ${item.cantidad}x ${item.nombre} (Talla: ${item.talla})\nTotal: ${formatCOP(item.precio * item.cantidad)}`;
             const numeroWhatsApp = '+573154154446';
             const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(
@@ -276,7 +351,6 @@ function setupBotonPagar() {
                 mensaje += `- ${item.cantidad}x ${item.nombre} (Talla: ${item.talla})\n`;
                 total += subtotal;
             });
-            // CAMBIO: Se usa formatCOP para el total en WhatsApp
             mensaje += `\n*Total del Pedido: ${formatCOP(total)}*`;
             const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
@@ -284,8 +358,20 @@ function setupBotonPagar() {
     }
 }
 
+/* =========================================================================
+   3. INICIALIZACIÓN (Al cargar la página)
+   ========================================================================= */
+
 document.addEventListener('DOMContentLoaded', () => {
     
+    // --- Lógica GLOBAL (Header) ---
+    // Se ejecuta en todas las páginas porque el header está en todas
+    highlighActiveLink();
+    window.addEventListener('scroll', handleHeaderVisibility);
+    window.addEventListener('resize', handleHeaderVisibility);
+    handleHeaderVisibility(); // Ejecutar al inicio
+
+    // --- Lógica ESPECÍFICA (Por Página) ---
     const page = document.body.dataset.page;
 
     if (page === 'home') {

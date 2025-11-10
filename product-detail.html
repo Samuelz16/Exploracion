@@ -10,21 +10,7 @@
   </head>
   <body data-page="detalle-producto">
     
-    <header class="header">
-        <img src="img/logo 2.png" alt="Logo" class="logo">
-        <nav>
-            <ul class="nav-menu">
-                <li><a class="nav-link" href="index.html">Inicio</a></li>
-                <li><a class="nav-link" href="productos.html">Productos</a></li>
-                <li><a class="nav-link" href="nosotros.html">Nosotros</a></li>
-                <li><a class="nav-link" href="contactanos.html">Contacto</a></li>
-            </ul>
-        </nav>
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="Buscar productos...">
-            <button class="search-button">Buscar</button>
-        </div>
-    </header>
+    <div id="header-placeholder"></div>
 
     <main class="container">
       
@@ -62,7 +48,7 @@
                 <p class="product-description" id="product-description">
                   Aquí va la descripción detallada del producto.
                 </p>
-                <div class="product-price" id="product-price">$0.00</div>
+                <div class="product-price" id="product-price">$0</div>
                 
                 <div class="product-options d-flex gap-4 flex-wrap align-items-center mb-4">
                   <div class="size-selector">
@@ -94,6 +80,10 @@
         </section>
       </main>
     
+    <footer class="text-center p-3" style="background-color: rgba(255, 255, 255, 0.85);">
+        <p class="mb-0 text-secondary">&copy; 2024 CAPAZ. Todos los derechos reservados.</p>
+    </footer>
+
     <div id="toast-notification">
         <div id="toast-body"></div>
     </div>
