@@ -74,14 +74,14 @@ function highlighActiveLink() {
 injectHeader();
 
 /* =========================================================================
-   2. LÓGICA DE PRODUCTOS Y CARRITO
+   2. LÓGICA DE PRODUCTOS Y CARRITO (Tu contenido actualizado)
    ========================================================================= */
 
 const productos = [
     { 
       id: 1, 
-      nombre: "Prenda 1", 
-      precio: 25000, 
+      nombre: "Coolombia", 
+      precio: 100000, 
       imagen: "img/1.png", 
       imagenesAdicionales: ["img/1.1.png", "img/1.png"], 
       descripcion: "Una prenda cómoda y elegante para cualquier ocasión.",
@@ -98,8 +98,8 @@ const productos = [
     },
     { 
       id: 3, 
-      nombre: "Prenda 3", 
-      precio: 20000, 
+      nombre: "jean floral", 
+      precio: 90000, 
       imagen: "img/3.png", 
       imagenesAdicionales: ["img/3.1.png", "img/3.png"], 
       descripcion: "Perfecta para un look casual y relajado.",
@@ -107,18 +107,18 @@ const productos = [
     },
     { 
       id: 4, 
-      nombre: "Prenda 4", 
-      precio: 35000, 
+      nombre: "Pantalon Guayacan", 
+      precio: 99900, 
       imagen: "img/4.png", 
       imagenesAdicionales: ["img/4.1.png", "img/4.png"], 
       descripcion: "Diseño exclusivo con materiales de alta calidad."
       
     },
-    { id: 5, nombre: "Prenda 5", precio: 28000, imagen: "img/5.png", imagenesAdicionales: ["img/5.1.png", "img/5.png"], descripcion: "Estilo fresco y juvenil." },
+    { id: 5, nombre: "Camisa Guayacan", precio: 70000, imagen: "img/5.png", imagenesAdicionales: ["img/5.1.png", "img/5.png"], descripcion: "Estilo fresco y juvenil." },
     { 
       id: 6, 
-      nombre: "Prenda 6", 
-      precio: 45000, 
+      nombre: "falda esmeraldada", 
+      precio: 70000, 
       imagen: "img/6.png", 
       imagenesAdicionales: ["img/6.1.png", "img/6.png"], 
       descripcion: "Elegancia y confort en una sola prenda."
