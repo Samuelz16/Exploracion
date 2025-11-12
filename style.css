@@ -15,6 +15,7 @@
 body {
   min-height: 100vh;
   background: #f5f0f8;
+  background-image: url("fondo.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -503,7 +504,8 @@ body::before {
 }
 
 .hero-section {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("fondo.png");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("fondo.png");
   background-size: cover;
   background-position: center;
   height: 60vh;
