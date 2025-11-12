@@ -505,7 +505,7 @@ body::before {
 
 .hero-section {
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url("fondo.png");
+    url("baner.png");
   background-size: cover;
   background-position: center;
   height: 60vh;
